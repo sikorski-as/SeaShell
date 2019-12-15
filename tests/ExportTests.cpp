@@ -3,13 +3,13 @@
 
 // export a = "aaaa"
 Program generateSimpleExport() {
-    Identifier commandName = Identifier("export");
+    Identifier* commandName = new Identifier("export");
     std::vector<Node*> arguments;
-    Identifier assigned = Identifier("\"aaaa\"");
-    VariableAssignment varAssignment = VariableAssignment("a", &assigned);
-    arguments.push_back(&varAssignment);
-    Command c = Command(&commandName, arguments);
+    Identifier* assigned = new Identifier("aaaa");
+    VariableAssignment* varAssignment = new VariableAssignment("a", assigned);
+    arguments.push_back(varAssignment);
+    Command* c = new Command(commandName, arguments);
     std::vector<Node*> commands;
-    commands.push_back(&c);
+    commands.push_back(c);
     return Program(commands);
 }

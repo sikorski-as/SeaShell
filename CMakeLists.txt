@@ -36,6 +36,7 @@ add_executable(exec_test
 
         src/modules/Executor.cpp src/modules/Executor.h
         src/modules/Context.cpp src/modules/Context.h
+        src/modules/Cleaner.cpp src/modules/Cleaner.h
 
         tests/PwdTests.cpp
         tests/CdTests.cpp

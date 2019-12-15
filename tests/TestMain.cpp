@@ -1,5 +1,6 @@
 #include "AllTests.h"
 #include "../src/modules/Executor.h"
+#include "../src/modules/Cleaner.h"
 
 int main() {
     Program pwd = generateSimplePwd();
@@ -18,6 +19,21 @@ int main() {
 
     auto ex = Executor();
     ex.execute(assignment);
+
+    Cleaner cleaner = Cleaner();
+    cleaner.clean(&pwd);
+    cleaner.clean(&cd);
+    cleaner.clean(&echo);
+    cleaner.clean(&echo2);
+    cleaner.clean(&echo3);
+    cleaner.clean(&assignment);
+    cleaner.clean(&exported);
+    cleaner.clean(&pipe1);
+    cleaner.clean(&pipe2);
+    cleaner.clean(&pipe3);
+    cleaner.clean(&outRedirection);
+    cleaner.clean(&inRedirection);
+    cleaner.clean(&redirection);
 
     return 0;
 }

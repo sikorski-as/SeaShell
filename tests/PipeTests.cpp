@@ -3,86 +3,86 @@
 // echo "a bb" | wc
 Program generateSimplePipe() {
     // echo "a bb"
-    Identifier echo = Identifier("echo");
+    Identifier* echo = new Identifier("echo");
     std::vector<Node*> echoArguments;
-    Identifier arg = Identifier("\"a bb\"");
-    echoArguments.push_back(&arg);
-    Command echoCommand = Command(&echo, echoArguments);
+    Identifier* arg = new Identifier("\"a bb\"");
+    echoArguments.push_back(arg);
+    Command* echoCommand = new Command(echo, echoArguments);
 
     // wc
-    Identifier wc = Identifier("wc");
+    Identifier* wc = new Identifier("wc");
     std::vector<Node*> wcArguments;
-    Command wcCommand = Command(&wc, wcArguments);
+    Command* wcCommand = new Command(wc, wcArguments);
 
     // pipe
     std::vector<Node*> pipes;
-    pipes.push_back(&echoCommand);
-    pipes.push_back(&wcCommand);
-    PipeExpr pipe = PipeExpr(pipes);
+    pipes.push_back(echoCommand);
+    pipes.push_back(wcCommand);
+    PipeExpr* pipe = new PipeExpr(pipes);
 
     std::vector<Node*> programCommands;
-    programCommands.push_back(&pipe);
+    programCommands.push_back(pipe);
     return Program(programCommands);
 }
 
 // cat in.txt | grep aaa | wc
 Program generateManyPipes() {
     // cat in.txt
-    Identifier cat = Identifier("cat");
+    Identifier* cat = new Identifier("cat");
     std::vector<Node*> catArguments;
-    Identifier arg = Identifier("in.txt");
-    catArguments.push_back(&arg);
-    Command catCommand = Command(&cat, catArguments);
+    Identifier* arg = new Identifier("in.txt");
+    catArguments.push_back(arg);
+    Command* catCommand = new Command(cat, catArguments);
 
     // grep aaa
-    Identifier grep = Identifier("grep");
+    Identifier* grep = new Identifier("grep");
     std::vector<Node*> grepArguments;
-    Identifier grepArg = Identifier("aaa");
-    grepArguments.push_back(&grepArg);
-    Command grepCommand = Command(&grep, grepArguments);
+    Identifier* grepArg = new Identifier("aaa");
+    grepArguments.push_back(grepArg);
+    Command* grepCommand = new Command(grep, grepArguments);
 
     // wc
-    Identifier wc = Identifier("wc");
+    Identifier* wc = new Identifier("wc");
     std::vector<Node*> wcArguments;
-    Command wcCommand = Command(&wc, wcArguments);
+    Command* wcCommand = new Command(wc, wcArguments);
 
     // pipe
     std::vector<Node*> pipes;
-    pipes.push_back(&catCommand);
-    pipes.push_back(&grepCommand);
-    pipes.push_back(&wcCommand);
-    PipeExpr pipe = PipeExpr(pipes);
+    pipes.push_back(catCommand);
+    pipes.push_back(grepCommand);
+    pipes.push_back(wcCommand);
+    PipeExpr* pipe = new PipeExpr(pipes);
 
     std::vector<Node*> programCommands;
-    programCommands.push_back(&pipe);
+    programCommands.push_back(pipe);
     return Program(programCommands);
 }
 
 // cat < filenames.txt | grep aaa > filtered.txt
 Program generatePipeWithRedirections() {
     // cat in.txt
-    Identifier cat = Identifier("cat");
+    Identifier* cat = new Identifier("cat");
     std::vector<Node*> catArguments;
-    Command catCommand = Command(&cat, catArguments);
-    Identifier in = Identifier("filenames.txt");
-    RedirectionExpr catRedirection = RedirectionExpr(&catCommand, &in, nullptr);
+    Command* catCommand = new Command(cat, catArguments);
+    Identifier* in = new Identifier("filenames.txt");
+    RedirectionExpr* catRedirection = new RedirectionExpr(catCommand, in, nullptr);
 
     // grep aaa
-    Identifier grep = Identifier("grep");
+    Identifier* grep = new Identifier("grep");
     std::vector<Node*> grepArguments;
-    Identifier grepArg = Identifier("aaa");
-    grepArguments.push_back(&grepArg);
-    Command grepCommand = Command(&grep, grepArguments);
-    Identifier out = Identifier("filtered.txt");
-    RedirectionExpr grepRedirection = RedirectionExpr(&grepCommand, nullptr, &out);
+    Identifier* grepArg = new Identifier("aaa");
+    grepArguments.push_back(grepArg);
+    Command* grepCommand = new Command(grep, grepArguments);
+    Identifier* out = new Identifier("filtered.txt");
+    RedirectionExpr* grepRedirection = new RedirectionExpr(grepCommand, nullptr, out);
 
     // pipe
     std::vector<Node*> pipes;
-    pipes.push_back(&catRedirection);
-    pipes.push_back(&grepRedirection);
-    PipeExpr pipe = PipeExpr(pipes);
+    pipes.push_back(catRedirection);
+    pipes.push_back(grepRedirection);
+    PipeExpr* pipe = new PipeExpr(pipes);
 
     std::vector<Node*> programCommands;
-    programCommands.push_back(&pipe);
+    programCommands.push_back(pipe);
     return Program(programCommands);
 }
