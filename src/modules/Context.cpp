@@ -2,30 +2,26 @@
 #include <stdlib.h>
 #include <iostream>
 
-void Context::setVariable(std::string key, std::string value){
+void Context::setVariable(std::string key, std::string value) {
     this->localVars[key] = value;
 }
 
-void Context::exportVariable(std::string key, std::string value){
-    // this->setVariable(key, value);
-    std::string exportString = key + "=" + value;
-    const char* exportChars = exportString.c_str();
-    int ret = putenv( (char*)exportChars );
-    std::cout<<ret<<std::endl;
+void Context::exportVariable(std::string key, std::string value) {
+    this->setVariable(key, value);
+    setenv(key.c_str(), value.c_str(), true);
 }
 
-std::string Context::getVariable(std::string key){
-    std::map<std::string, std::string>::iterator it = this->localVars.find(key);
-    if(it != localVars.end()) {
-        //element found
-        std::cout<<"Getting from local";
+std::string Context::getVariable(std::string key) {
+    // check in local
+    auto it = this->localVars.find(key);
+    if (it != localVars.end()) {
         return it->second;
     }
-    char* envVal = getenv( (char*)key.c_str() );
-    if(envVal != NULL) {
-        std::cout<<"Getting from env";
+    // check in global
+    char *envVal = getenv((char *) key.c_str());
+    if (envVal != nullptr) {
         return std::string(envVal);
     }
-
-    return "No";
+    // not found
+    return "";
 }
