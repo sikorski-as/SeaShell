@@ -11,8 +11,8 @@ class VariableAssignment : public Node {
         ~VariableAssignment();    
         std::string getName();
         void setName(std::string name);
-        Assignable* getArguments();
-        void setArguments(Assignable* assigned);
+        Assignable* getValue();
+        void setValue(Assignable* assigned);
         NodeType getType();
     private:
         std::string name;

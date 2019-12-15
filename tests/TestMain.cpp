@@ -1,4 +1,5 @@
 #include "AllTests.h"
+#include "../src/modules/Executor.h"
 
 int main() {
     Program pwd = generateSimplePwd();
@@ -14,5 +15,9 @@ int main() {
     Program outRedirection =  generateOutputRedirection();
     Program inRedirection = generateInputRedirection();
     Program redirection = generateBothWayRedirection();
+
+    auto ex = Executor();
+    ex.execute(assignment);
+
     return 0;
 }

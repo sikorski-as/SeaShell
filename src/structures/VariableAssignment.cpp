@@ -15,10 +15,10 @@ std::string VariableAssignment::getName(){
 void VariableAssignment::setName(std::string name){
     this->name = name;
 }
-Assignable* VariableAssignment::getArguments(){
+Assignable* VariableAssignment::getValue(){
     return this->assigned;
 }
-void VariableAssignment::setArguments(Assignable* assignede){
+void VariableAssignment::setValue(Assignable* assigned){
     this->assigned = assigned;
 }
 NodeType VariableAssignment::getType() {
