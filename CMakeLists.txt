@@ -18,6 +18,7 @@ add_executable(uxp
 
         src/modules/Executor.cpp src/modules/Executor.h
         src/modules/Interpreter.cpp src/modules/Interpreter.h
+        src/modules/Context.cpp src/modules/Context.h
         src/modules/Shell.cpp src/modules/Shell.h
         )
 
