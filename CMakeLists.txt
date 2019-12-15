@@ -38,5 +38,8 @@ add_executable(exec_test
         tests/CdTests.cpp
         tests/EchoTests.cpp
         tests/VariableAssignmentTests.cpp
+        tests/ExportTests.cpp
+        tests/PipeTests.cpp
+        tests/RedirectionTests.cpp
         tests/TestMain.cpp
 )

@@ -5,5 +5,8 @@
 #include "CdTests.h"
 #include "EchoTests.h"
 #include "VariableAssignmentTests.h"
+#include "ExportTests.h"
+#include "PipeTests.h"
+#include "RedirectionTests.h"
 
 #endif
