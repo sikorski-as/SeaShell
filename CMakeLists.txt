@@ -14,4 +14,8 @@ add_executable(uxp
         src/structures/Program.cpp
         src/structures/RedirectionExpr.cpp
         src/structures/VariableAssignment.cpp
-        src/structures/VariableCall.cpp)
+        src/structures/VariableCall.cpp
+
+        src/modules/Executor.cpp src/modules/Executor.h
+        src/modules/Interpreter.cpp src/modules/Interpreter.h
+        src/modules/Shell.cpp src/modules/Shell.h)

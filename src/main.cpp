@@ -1,6 +1,7 @@
 #include <iostream>
+#include "modules/Shell.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    auto sh = Shell();
+    sh.start();
 }
