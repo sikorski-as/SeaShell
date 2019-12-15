@@ -1,3 +1,6 @@
+#ifndef VARIABLE_ASSIGNMENT_H
+#define VARIABLE_ASSIGNMENT_H
+
 #include <string>
 #include "Assignable.h"
 
@@ -15,3 +18,5 @@ class VariableAssignment : public Node {
         std::string name;
         Assignable assigned;
 };
+
+#endif

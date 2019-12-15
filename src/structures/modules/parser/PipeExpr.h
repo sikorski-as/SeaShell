@@ -1,3 +1,6 @@
+#ifndef PIPE_EXPR_H
+#define PIPE_EXPR_H
+
 #include <vector>
 #include "Node.h"
 
@@ -12,3 +15,5 @@ class PipeExpr : public Node {
     private:
         std::vector<Node> pipes;
 };
+
+#endif

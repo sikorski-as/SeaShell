@@ -1,3 +1,6 @@
+#ifndef VARIABLE_CALL_H
+#define VARIABLE_CALL_H
+
 #include <string>
 #include "Assignable.h"
 
@@ -12,3 +15,5 @@ class VariableCall : public Assignable {
     private:
         std::string name;
 };
+
+#endif

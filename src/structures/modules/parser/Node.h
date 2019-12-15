@@ -1,19 +1,14 @@
+#ifndef NODE_H
+#define NODE_H
+
+#include "NodeType.h"
+
 class Node {
     protected:
         NodeType type;
     public:
-        virtual NodeType getType();
+        NodeType getType(){return NodeType::NONE;}
         Node(/* args */);
         ~Node();
 };
-
-enum class NodeType {
-    PROGRAM,
-    PIPE_EXPR,
-    REDIRECTION_EXPR,
-    IDENTIFIER,
-    BACKTICK_EXPR,
-    VARIABLE_CALL,
-    COMMAND,
-    VARIABLE_ASSIGNMENT
-};
+#endif

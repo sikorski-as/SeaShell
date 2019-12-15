@@ -1,3 +1,6 @@
+#ifndef PROGRAM_H
+#define PROGRAM_H
+
 #include <vector>
 #include "Node.h"
 
@@ -12,3 +15,5 @@ class Program: public Node {
     private:
         std::vector<Node> commands;
 };
+
+#endif

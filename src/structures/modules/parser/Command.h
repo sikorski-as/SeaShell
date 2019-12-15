@@ -1,3 +1,6 @@
+#ifndef COMMAND_H
+#define COMMAND_H
+
 #include <string>
 #include <vector>
 #include "Node.h"
@@ -16,3 +19,5 @@ class Command : public Node {
         std::string commandName;
         std::vector<Node> arguments;
 };
+
+#endif

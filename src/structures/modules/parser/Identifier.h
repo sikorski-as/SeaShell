@@ -1,3 +1,6 @@
+#ifndef IDENTIFIER_H
+#define IDENTIFIER_H
+
 #include <string>
 #include "Assignable.h"
 
@@ -12,3 +15,5 @@ class Identifier : public Assignable {
     private:
         std::string identifier;
 };
+
+#endif

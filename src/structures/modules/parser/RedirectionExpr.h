@@ -1,3 +1,6 @@
+#ifndef REDIRECTION_EXPR_H
+#define REDIRECTION_EXPR_H
+
 #include "Node.h"
 
 class RedirectionExpr : public Node {
@@ -17,3 +20,5 @@ class RedirectionExpr : public Node {
         Node input;
         Node output;
 };
+
+#endif
