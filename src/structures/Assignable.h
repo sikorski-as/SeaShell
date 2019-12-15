@@ -5,9 +5,8 @@
 
 class Assignable : public Node {
     public:
-        Assignable(/* args */);
-        ~Assignable();
-        NodeType getType(){return NodeType::NONE;}
+        virtual NodeType getType() = 0;
+        ~Assignable(){};
 };
 
 #endif

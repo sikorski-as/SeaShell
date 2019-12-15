@@ -7,13 +7,13 @@
 class PipeExpr : public Node {
     public:
         PipeExpr();
-        PipeExpr(std::vector<Node> pipes);
+        PipeExpr(std::vector<Node*> pipes);
         ~PipeExpr();    
-        std::vector<Node> getPipes();
-        void setPipes(std::vector<Node> pipes);
+        std::vector<Node*> getPipes();
+        void setPipes(std::vector<Node*> pipes);
         NodeType getType();
     private:
-        std::vector<Node> pipes;
+        std::vector<Node*> pipes;
 };
 
 #endif

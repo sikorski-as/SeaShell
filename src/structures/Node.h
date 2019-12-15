@@ -7,8 +7,7 @@ class Node {
     protected:
         NodeType type;
     public:
-        NodeType getType(){return NodeType::NONE;}
-        Node(/* args */);
-        ~Node();
+        virtual NodeType getType() = 0;
+        ~Node(){};
 };
 #endif
