@@ -34,5 +34,8 @@ add_executable(exec_test
         src/structures/VariableCall.cpp
 
         tests/PwdTests.cpp
+        tests/CdTests.cpp
+        tests/EchoTests.cpp
+        tests/VariableAssignmentTests.cpp
         tests/TestMain.cpp
 )

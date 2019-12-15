@@ -8,15 +8,15 @@
 class Command : public Node {
     public:
         Command();
-        Command(std::string commandName, std::vector<Node*> arguments);
+        Command(Node* commandName, std::vector<Node*> arguments);
         ~Command();    
-        std::string getCommandName();
-        void setCommandName(std::string commandName);
+        Node* getCommandName();
+        void setCommandName(Node* commandName);
         std::vector<Node*> getArguments();
         void setArguments(std::vector<Node*> arguments);
         NodeType getType();
     private:
-        std::string commandName;
+        Node* commandName; //backTick expr / identifier
         std::vector<Node*> arguments;
 };
 

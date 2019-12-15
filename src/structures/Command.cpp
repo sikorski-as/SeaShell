@@ -3,16 +3,16 @@
 Command::Command() {
     this->type = NodeType::COMMAND;
 }
-Command::Command(std::string commandName, std::vector<Node*> arguments) {
+Command::Command(Node* commandName, std::vector<Node*> arguments) {
     this->commandName = commandName;
     this->arguments = arguments;
     this->type = NodeType::COMMAND;
 }
 Command::~Command(){}
-std::string Command::getCommandName(){
+Node* Command::getCommandName(){
     return this->commandName;
 }
-void Command::setCommandName(std::string commandName){
+void Command::setCommandName(Node* commandName){
     this->commandName = commandName;
 }
 std::vector<Node*> Command::getArguments(){
