@@ -5,14 +5,21 @@
 #include "../structures/Program.h"
 #include "../structures/VariableAssignment.h"
 #include "Context.h"
+#include "../../tests/TestInclude.h" // TODO do przeniesienia
 
 class Executor {
     bool running = true;
+    std::string EMPTY_STRING = "";
     Context context;
 public:
     bool isRunning();
     void execute(Program&);
-    void executeVariableAssignment(VariableAssignment*);
+    std::string executeProgram(Program&);
+    std::string executeVariableAssignment(VariableAssignment*);
+    std::string executeCommand(Command*);
+    std::string executeRedirectionExpression(RedirectionExpr*);
+    std::string executePipeExpression(PipeExpr*);
+    std::string executeBackTickExpression(BackTickExpr*);
 };
 
 

@@ -20,6 +20,16 @@ int main() {
     auto ex = Executor();
     ex.execute(assignment);
 
+// for testing assigning variable call to another variable TODO make test for it
+    // std::string variableName = "local2";
+    // VariableCall vCall = VariableCall("local");
+    // VariableAssignment varAssignment = VariableAssignment(variableName, &vCall);
+    // std::vector<Node*> commands;
+    // commands.push_back(&varAssignment);
+    // Program p = Program(commands);
+    // ex.execute(p);
+
+
     Cleaner cleaner = Cleaner();
     cleaner.clean(&pwd);
     cleaner.clean(&cd);
