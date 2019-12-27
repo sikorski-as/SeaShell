@@ -1,13 +1,24 @@
 %{
-#include "parcer.tab.hpp"
+#include "structures/RedirectionExpr.h"
+#include "structures/VariableAssignment.h"
+#include "structures/VariableCall.h"
+#include "structures/Program.h"
+#include "structures/PipeExpr.h"
+#include "structures/Node.h"
+#include "structures/Identifier.h"
+#include "structures/Command.h"
+#include "structures/BackTickExpr.h"
 #include <iostream>
 #include <bits/stdc++.h>
-#include "src/structures/Identifier.h"
+#include "parser.hpp"
+
+// #define YY_DECL extern "C" int yylex()
 // #define DEBUG
 using namespace std;
 %}
 
 %option noyywrap
+%option c++
 
 %%
 \$[_a-zA-Z][_a-zA-Z0-9]*    { 

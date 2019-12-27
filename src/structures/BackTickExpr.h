@@ -7,14 +7,14 @@
 
 class BackTickExpr : public Assignable {
     public:
-        BackTickExpr(Program program);
+        BackTickExpr(Program* program);
         BackTickExpr();
         ~BackTickExpr();    
-        Program getProgram();
-        void setProgram(Program program);
+        Program* getProgram();
+        void setProgram(Program* program);
         NodeType getType();
     private:
-        Program program;
+        Program* program;
 };
 
 #endif

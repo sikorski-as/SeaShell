@@ -38,7 +38,7 @@ void Executor::execute(Program &program) {
                     throw std::runtime_error("Unexpected input");
             }
         } catch (std::runtime_error error) {
-            std::cout << error.what << std::endl;
+            std::cout << error.what() << std::endl;
         }
     }
 
@@ -72,7 +72,7 @@ std::string Executor::executeProgram(Program &program) { // TODO test
                     throw std::runtime_error("Unexpected input");
         }
         } catch (std::runtime_error error) {
-            output += error.what;
+            output += error.what();
         }
     }
 
@@ -122,11 +122,11 @@ std::string Executor::executeCommand(Command *command) {
 }
 
 std::string Executor::executeRedirectionExpression(RedirectionExpr* redirectionExpr) {
-    Node* program = redirectionExpr->getProgram(); // identifier / backtickexpr / command? TODO
+    Node* command = redirectionExpr->getCommand(); // identifier / backtickexpr / command? TODO
     Node* input = redirectionExpr->getInput();
     Node* output = redirectionExpr->getOutput();
 
-    NodeType type = program->getType();
+    NodeType type = command->getType();
     if(type == NodeType::BACKTICK_EXPR){
         throw std::runtime_error("TODO");
     } else if(type == NodeType::IDENTIFIER) {
@@ -146,11 +146,11 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
 }
 
 std::string Executor::executeBackTickExpression(BackTickExpr* backTickExpr) {
-    Program p = backTickExpr->getProgram();
+    Program* p = backTickExpr->getProgram();
     Context old = this->context; // TODO copy old context
 
     throw std::runtime_error("TODO TEST");
-    std::string backTickString =  this->executeProgram(p); // TODO w takim razie wywolanie execute powinno byc rozbite na execute i executeProgram i context powinien byc nowy tworzony
+    std::string backTickString =  this->executeProgram(*p); // TODO w takim razie wywolanie execute powinno byc rozbite na execute i executeProgram i context powinien byc nowy tworzony
 
     this->context = old; // TODO restore context
 

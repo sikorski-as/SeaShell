@@ -19,8 +19,8 @@ void Cleaner::clean(Program* program){
 void Cleaner::cleanIdentifier(Identifier *identifier){}
 void Cleaner::cleanBackTickExpr(BackTickExpr* backTickExpr) {
     if(backTickExpr != nullptr) {
-        Program p = backTickExpr->getProgram();
-        this->clean(&p);
+        Program* p = backTickExpr->getProgram();
+        this->clean(p);
         delete &p;
     }
 }
@@ -45,7 +45,7 @@ void Cleaner::cleanRedirectionExpr(RedirectionExpr* redirectionExpr){
     if(redirectionExpr != nullptr) {
         cleanNode(redirectionExpr->getInput());
         cleanNode(redirectionExpr->getOutput());
-        cleanNode(redirectionExpr->getProgram());
+        cleanNode(redirectionExpr->getCommand());
     }
 }
 void Cleaner::cleanVariableAssignment(VariableAssignment* variableAssignment){
