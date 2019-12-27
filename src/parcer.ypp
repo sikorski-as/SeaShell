@@ -2,15 +2,15 @@
   #include <bits/stdc++.h>
   #include <iostream>
   
-  #include "src/structures/RedirectionExpr.h"
-  #include "src/structures/VariableAssignment.h"
-  #include "src/structures/VariableCall.h"
-  #include "src/structures/Program.h"
-  #include "src/structures/PipeExpr.h"
-  #include "src/structures/Node.h"
-  #include "src/structures/Identifier.h"
-  #include "src/structures/Command.h"
-  #include "src/structures/BackTickExpr.h"
+  #include "structures/RedirectionExpr.h"
+  #include "structures/VariableAssignment.h"
+  #include "structures/VariableCall.h"
+  #include "structures/Program.h"
+  #include "structures/PipeExpr.h"
+  #include "structures/Node.h"
+  #include "structures/Identifier.h"
+  #include "structures/Command.h"
+  #include "structures/BackTickExpr.h"
 
   extern int yylex();
   extern int yyparse();
@@ -23,12 +23,12 @@
 %}
 // Tokens
 
-%start program
-
 %union {
+    char* sval;
     BackTickExpr* backtick_expr;
     Command* command;
     Identifier* ident;
+    Assignable* assign;
     Node* node;
     PipeExpr* pipe_expr;
     Program* program;
@@ -37,10 +37,21 @@
     VariableCall* var_call;
 }
 
+%start program
 %token LAND LOR BAND BOR
-%token ASSIGN SC EXPORT SM GR
-%token SQ_LITERAL DQ_LITERAL BS_LITERAL
-%token IDENTIFIER VARIABLE
+%token ASSIGN SC SM GR BT
+%token<sval> IDENTIFIER VARIABLE
+
+
+%type <program> program
+%type <command> command
+%type <assign> assignable
+%type <var_ass> assignment
+%type <redir_expr> redirection
+%type <pipe_expr> pipeline
+%type <backtick_expr> backtick_expr
+%type <ident> identifier
+%type <var_call> variable_call 
 
 %%
 
@@ -68,7 +79,7 @@ redirection   : redirection GR assignable { $1->setOutput($3); $$ = $1; }
 
 pipeline      : pipeline BOR command { auto pipes = $1->getPipes(); pipes.push_back($3); 
                   $1->setPipes(pipes); $$ = $1; }
-              : command BOR command { std::vector<Node*> pipes(); pipes.push_back($1);pipes.push_back($3);
+              | command BOR command { std::vector<Node*> pipes(); pipes.push_back($1);pipes.push_back($3);
                   $$ = PipeExpr(pipes); }
               ;
 
@@ -83,13 +94,13 @@ assignable    : backtick_expr { $$ = $1; }
               | variable_call { $$ = $1; }
               ;
 
-backtick_expr : BT program BT { $$ = new BackTickExpr($1); }
+backtick_expr : BT program BT { $$ = new BackTickExpr($2); }
               ;
 
-identifier    : IDENTIFIER { $$ = new Identifier($1); }
+identifier    : IDENTIFIER { $$ = new Identifier(string($1); }
               ;
 
-variable_call : VARIABLE { $$ = new VariableCall($1); }
+variable_call : VARIABLE { $$ = new VariableCall(string($1)); }
               ;
 %%
 

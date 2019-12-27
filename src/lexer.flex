@@ -1,10 +1,9 @@
 %{
-// #include "ASTDeclaration.h"
 #include "parcer.tab.hpp"
 #include <iostream>
 #include <bits/stdc++.h>
 #include "src/structures/Identifier.h"
-#define DEBUG
+// #define DEBUG
 using namespace std;
 %}
 
@@ -27,7 +26,6 @@ using namespace std;
 "|"                     { return BOR; }
 "="                     { return ASSIGN; }
 ";"                     { return SC; }
-"export"                { return EXPORT; }
 [_a-zA-Z][_a-zA-Z0-9]*  { 
                             yylval.sval = strdup(yytext); 
                         #ifdef DEBUG
