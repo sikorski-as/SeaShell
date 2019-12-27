@@ -1,0 +1,15 @@
+#ifndef NODE_TYPE_H
+#define NODE_TYPE_H
+
+enum class NodeType {
+    PROGRAM,
+    PIPE_EXPR,
+    REDIRECTION_EXPR,
+    IDENTIFIER,
+    BACKTICK_EXPR,
+    VARIABLE_CALL,
+    COMMAND,
+    VARIABLE_ASSIGNMENT
+};
+
+#endif
