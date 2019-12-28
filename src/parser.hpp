@@ -67,7 +67,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "parser.ypp"
+#line 23 "parser.ypp"
 
     char* sval;
     BackTickExpr* backtick_expression;

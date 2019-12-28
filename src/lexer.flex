@@ -9,7 +9,6 @@
 #include "structures/Command.h"
 #include "structures/BackTickExpr.h"
 #include <iostream>
-#include <bits/stdc++.h>
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
@@ -23,7 +22,7 @@ using namespace std;
 \$[_a-zA-Z][_a-zA-Z0-9]*    { 
                                 yylval.sval = strdup(yytext); 
                             #ifdef DEBUG
-                                cout << "MSG: " << yytext << endl;
+                                cout << "Variable: " << yytext << endl;
                             #endif
                                 return VARIABLE; 
                             }
@@ -39,7 +38,7 @@ using namespace std;
 [_a-zA-Z][_a-zA-Z0-9]*  { 
                             yylval.sval = strdup(yytext); 
                         #ifdef DEBUG
-                            cout << "MSG: " << yytext << endl;
+                            cout << "Identifier: " << yytext << endl;
                         #endif
                             return IDENTIFIER; 
                         }

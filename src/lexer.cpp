@@ -462,14 +462,13 @@ char *yytext;
 #include "structures/Command.h"
 #include "structures/BackTickExpr.h"
 #include <iostream>
-#include <bits/stdc++.h>
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
 #define DEBUG
 using namespace std;
+#line 470 "lexer.cpp"
 #line 471 "lexer.cpp"
-#line 472 "lexer.cpp"
 
 #define INITIAL 0
 
@@ -686,9 +685,9 @@ YY_DECL
 		}
 
 	{
-#line 22 "lexer.flex"
+#line 21 "lexer.flex"
 
-#line 691 "lexer.cpp"
+#line 690 "lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -747,77 +746,77 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 23 "lexer.flex"
+#line 22 "lexer.flex"
 { 
                                 yylval.sval = strdup(yytext); 
                             #ifdef DEBUG
-                                cout << "MSG: " << yytext << endl;
+                                cout << "Variable: " << yytext << endl;
                             #endif
                                 return VARIABLE; 
                             }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "lexer.flex"
+#line 29 "lexer.flex"
 { return BT; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "lexer.flex"
+#line 30 "lexer.flex"
 { return GR; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 32 "lexer.flex"
+#line 31 "lexer.flex"
 { return SM; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 33 "lexer.flex"
+#line 32 "lexer.flex"
 { return LAND; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 34 "lexer.flex"
+#line 33 "lexer.flex"
 { return LOR; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "lexer.flex"
+#line 34 "lexer.flex"
 { return BAND; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 36 "lexer.flex"
+#line 35 "lexer.flex"
 { return BOR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 37 "lexer.flex"
+#line 36 "lexer.flex"
 { return ASSIGN; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 38 "lexer.flex"
+#line 37 "lexer.flex"
 { return SC; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 39 "lexer.flex"
+#line 38 "lexer.flex"
 { 
                             yylval.sval = strdup(yytext); 
                         #ifdef DEBUG
-                            cout << "MSG: " << yytext << endl;
+                            cout << "Identifier: " << yytext << endl;
                         #endif
                             return IDENTIFIER; 
                         }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 46 "lexer.flex"
+#line 45 "lexer.flex"
 ECHO;
 	YY_BREAK
-#line 820 "lexer.cpp"
+#line 819 "lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1822,5 +1821,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 46 "lexer.flex"
+#line 45 "lexer.flex"
 

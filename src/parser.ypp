@@ -9,7 +9,6 @@
   #include "structures/Command.h"
   #include "structures/BackTickExpr.h"
 
-  #include <bits/stdc++.h>
   #include <iostream>
 
   int yylex(void);
@@ -94,10 +93,20 @@ assignable              : backtick_expression { $$ = $1; }
 backtick_expression     : BT program BT { $$ = new BackTickExpr($2); }
                         ;
 
-identifier              : IDENTIFIER { $$ = new Identifier(string($1)); }
+identifier              : IDENTIFIER { 
+                            $$ = new Identifier(string($1)); 
+                            #ifdef DEBUG
+                                cout << "Identifier found: "<< $1 <<endl;
+                            #endif
+                            }
                         ;
 
-variable_call           : VARIABLE { $$ = new VariableCall(string($1)); }
+variable_call           : VARIABLE { 
+                            $$ = new VariableCall(string($1)); 
+                            #ifdef DEBUG
+                                cout << "Variable found: "<< $1 <<endl;
+                            #endif
+                            }
                         ;
 %%
 

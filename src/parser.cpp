@@ -78,7 +78,6 @@
   #include "structures/Command.h"
   #include "structures/BackTickExpr.h"
 
-  #include <bits/stdc++.h>
   #include <iostream>
 
   int yylex(void);
@@ -88,7 +87,7 @@
   int errors = 0;
   using namespace std;
 
-#line 92 "parser.cpp"
+#line 91 "parser.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -154,7 +153,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "parser.ypp"
+#line 23 "parser.ypp"
 
     char* sval;
     BackTickExpr* backtick_expression;
@@ -168,7 +167,7 @@ union YYSTYPE
     VariableAssignment* variable_assignment;
     VariableCall* variable_call;
 
-#line 172 "parser.cpp"
+#line 171 "parser.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -544,9 +543,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    55,    55,    56,    58,    60,    62,    64,    67,    71,
-      72,    73,    74,    77,    79,    83,    85,    89,    90,    91,
-      94,    97,   100
+       0,    54,    54,    55,    57,    59,    61,    63,    66,    70,
+      71,    72,    73,    76,    78,    82,    84,    88,    89,    90,
+      93,    96,   104
 };
 #endif
 
@@ -1356,142 +1355,152 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 55 "parser.ypp"
+#line 54 "parser.ypp"
                                       {  }
-#line 1362 "parser.cpp"
+#line 1361 "parser.cpp"
     break;
 
   case 3:
-#line 56 "parser.ypp"
+#line 55 "parser.ypp"
                                           { auto commands = (yyvsp[-1].program)->getCommands(); commands.push_back((yyvsp[0].command));
                             (yyvsp[-1].program)->setCommands(commands); }
-#line 1369 "parser.cpp"
+#line 1368 "parser.cpp"
     break;
 
   case 4:
-#line 58 "parser.ypp"
+#line 57 "parser.ypp"
                                                   { auto commands = (yyvsp[-1].program)->getCommands(); commands.push_back((yyvsp[0].pipe_expression));
                             (yyvsp[-1].program)->setCommands(commands); }
-#line 1376 "parser.cpp"
+#line 1375 "parser.cpp"
     break;
 
   case 5:
-#line 60 "parser.ypp"
+#line 59 "parser.ypp"
                                                       { auto commands = (yyvsp[-1].program)->getCommands(); commands.push_back((yyvsp[0].variable_assignment));
                             (yyvsp[-1].program)->setCommands(commands); }
-#line 1383 "parser.cpp"
+#line 1382 "parser.cpp"
     break;
 
   case 6:
-#line 62 "parser.ypp"
+#line 61 "parser.ypp"
                                                          { auto commands = (yyvsp[-1].program)->getCommands(); commands.push_back((yyvsp[0].redirection_expression));
                             (yyvsp[-1].program)->setCommands(commands); }
-#line 1390 "parser.cpp"
+#line 1389 "parser.cpp"
     break;
 
   case 7:
-#line 64 "parser.ypp"
+#line 63 "parser.ypp"
                                      { (yyval.program) = (yyvsp[-1].program); }
-#line 1396 "parser.cpp"
+#line 1395 "parser.cpp"
     break;
 
   case 8:
-#line 67 "parser.ypp"
+#line 66 "parser.ypp"
                                                        { (yyval.variable_assignment) = new VariableAssignment((yyvsp[-2].identifier)->getIdentifier(), (yyvsp[0].assignable)); 
                                 /* Work with variable values */ }
-#line 1403 "parser.cpp"
+#line 1402 "parser.cpp"
     break;
 
   case 9:
-#line 71 "parser.ypp"
+#line 70 "parser.ypp"
                                                                { (yyvsp[-2].redirection_expression)->setOutput((yyvsp[0].assignable)); (yyval.redirection_expression) = (yyvsp[-2].redirection_expression); }
-#line 1409 "parser.cpp"
+#line 1408 "parser.cpp"
     break;
 
   case 10:
-#line 72 "parser.ypp"
+#line 71 "parser.ypp"
                                                                { (yyvsp[-2].redirection_expression)->setInput((yyvsp[0].assignable)); (yyval.redirection_expression) = (yyvsp[-2].redirection_expression); }
-#line 1415 "parser.cpp"
+#line 1414 "parser.cpp"
     break;
 
   case 11:
-#line 73 "parser.ypp"
+#line 72 "parser.ypp"
                                                 { (yyval.redirection_expression) = new RedirectionExpr((yyvsp[-2].command), nullptr, (yyvsp[0].assignable)); }
-#line 1421 "parser.cpp"
+#line 1420 "parser.cpp"
     break;
 
   case 12:
-#line 74 "parser.ypp"
+#line 73 "parser.ypp"
                                                 { (yyval.redirection_expression) = new RedirectionExpr((yyvsp[-2].command), (yyvsp[0].assignable), nullptr); }
-#line 1427 "parser.cpp"
+#line 1426 "parser.cpp"
     break;
 
   case 13:
-#line 77 "parser.ypp"
+#line 76 "parser.ypp"
                                                       { auto pipes = (yyvsp[-2].pipe_expression)->getPipes(); pipes.push_back((yyvsp[0].command)); 
                             (yyvsp[-2].pipe_expression)->setPipes(pipes); (yyval.pipe_expression) = (yyvsp[-2].pipe_expression); }
-#line 1434 "parser.cpp"
+#line 1433 "parser.cpp"
     break;
 
   case 14:
-#line 79 "parser.ypp"
+#line 78 "parser.ypp"
                                               { std::vector<Node*> pipes; pipes.push_back((yyvsp[-2].command));pipes.push_back((yyvsp[0].command));
                             (yyval.pipe_expression) = new PipeExpr(pipes); }
-#line 1441 "parser.cpp"
+#line 1440 "parser.cpp"
     break;
 
   case 15:
-#line 83 "parser.ypp"
+#line 82 "parser.ypp"
                                              { auto args = (yyvsp[-1].command)->getArguments(); args.push_back((yyvsp[0].assignable));
                             (yyvsp[-1].command)->setArguments(args); (yyval.command) = (yyvsp[-1].command); }
-#line 1448 "parser.cpp"
+#line 1447 "parser.cpp"
     break;
 
   case 16:
-#line 85 "parser.ypp"
+#line 84 "parser.ypp"
                                      { std::vector<Node*> args; 
                             (yyval.command) = new Command((yyvsp[0].assignable), args); }
-#line 1455 "parser.cpp"
+#line 1454 "parser.cpp"
     break;
 
   case 17:
-#line 89 "parser.ypp"
+#line 88 "parser.ypp"
                                               { (yyval.assignable) = (yyvsp[0].backtick_expression); }
-#line 1461 "parser.cpp"
+#line 1460 "parser.cpp"
     break;
 
   case 18:
-#line 90 "parser.ypp"
+#line 89 "parser.ypp"
                                      { (yyval.assignable) = (yyvsp[0].identifier); }
-#line 1467 "parser.cpp"
+#line 1466 "parser.cpp"
     break;
 
   case 19:
-#line 91 "parser.ypp"
+#line 90 "parser.ypp"
                                         { (yyval.assignable) = (yyvsp[0].variable_call); }
-#line 1473 "parser.cpp"
+#line 1472 "parser.cpp"
     break;
 
   case 20:
-#line 94 "parser.ypp"
+#line 93 "parser.ypp"
                                         { (yyval.backtick_expression) = new BackTickExpr((yyvsp[-1].program)); }
-#line 1479 "parser.cpp"
+#line 1478 "parser.cpp"
     break;
 
   case 21:
-#line 97 "parser.ypp"
-                                     { (yyval.identifier) = new Identifier(string((yyvsp[0].sval))); }
-#line 1485 "parser.cpp"
+#line 96 "parser.ypp"
+                                     { 
+                            (yyval.identifier) = new Identifier(string((yyvsp[0].sval))); 
+                            #ifdef DEBUG
+                                cout << "Identifier found: "<< (yyvsp[0].sval) <<endl;
+                            #endif
+                            }
+#line 1489 "parser.cpp"
     break;
 
   case 22:
-#line 100 "parser.ypp"
-                                   { (yyval.variable_call) = new VariableCall(string((yyvsp[0].sval))); }
-#line 1491 "parser.cpp"
+#line 104 "parser.ypp"
+                                   { 
+                            (yyval.variable_call) = new VariableCall(string((yyvsp[0].sval))); 
+                            #ifdef DEBUG
+                                cout << "Variable found: "<< (yyvsp[0].sval) <<endl;
+                            #endif
+                            }
+#line 1500 "parser.cpp"
     break;
 
 
-#line 1495 "parser.cpp"
+#line 1504 "parser.cpp"
 
       default: break;
     }
@@ -1723,7 +1732,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 102 "parser.ypp"
+#line 111 "parser.ypp"
 
 
 void yyerror (char const *s)
