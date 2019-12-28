@@ -13,12 +13,11 @@
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
-// #define DEBUG
+#define DEBUG
 using namespace std;
 %}
 
 %option noyywrap
-%option c++
 
 %%
 \$[_a-zA-Z][_a-zA-Z0-9]*    { 

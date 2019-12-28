@@ -12,7 +12,7 @@
   #include <bits/stdc++.h>
   #include <iostream>
 
-  extern "C" int yylex(void);
+  int yylex(void);
   extern "C" int yyparse();
   extern "C" int errors;
   void yyerror (char const *s);
