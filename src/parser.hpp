@@ -1,9 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.5.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,9 +30,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
-
 #ifndef YY_YY_PARSER_HPP_INCLUDED
 # define YY_YY_PARSER_HPP_INCLUDED
 /* Debug traces.  */
@@ -58,16 +54,19 @@ extern int yydebug;
     SM = 264,
     GR = 265,
     BT = 266,
-    IDENTIFIER = 267,
-    VARIABLE = 268
+    EOL = 267,
+    EOFF = 268,
+    IDENTIFIER = 269,
+    VARIABLE = 270
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+
 union YYSTYPE
 {
-#line 23 "parser.ypp"
+#line 25 "parser.ypp" /* yacc.c:1909  */
 
     char* sval;
     BackTickExpr* backtick_expression;
@@ -81,9 +80,9 @@ union YYSTYPE
     VariableAssignment* variable_assignment;
     VariableCall* variable_call;
 
-#line 85 "parser.hpp"
-
+#line 84 "parser.hpp" /* yacc.c:1909  */
 };
+
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

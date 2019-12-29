@@ -12,7 +12,7 @@
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
-#define DEBUG
+//#define DEBUG
 using namespace std;
 %}
 
@@ -20,7 +20,7 @@ using namespace std;
 
 %%
 \$[_a-zA-Z][_a-zA-Z0-9]*    { 
-                                yylval.sval = strdup(yytext); 
+                                yylval.sval = strdup(yytext+1);
                             #ifdef DEBUG
                                 cout << "Variable: " << yytext << endl;
                             #endif
@@ -42,4 +42,6 @@ using namespace std;
                         #endif
                             return IDENTIFIER; 
                         }
+<*>\n		            { BEGIN(INITIAL); return EOL; }
+<*><<EOF>>	            { return EOFF; }
 %%

@@ -10,6 +10,7 @@
   #include "structures/BackTickExpr.h"
 
   #include <iostream>
+  #define DEBUG
 
   int yylex(void);
   extern "C" int yyparse();
@@ -17,6 +18,7 @@
   void yyerror (char const *s);
   int errors = 0;
   using namespace std;
+  Program* root;
 %}
 // Tokens
 
@@ -34,12 +36,12 @@
     VariableCall* variable_call;
 }
 
-%start program
+%start program_main
 %token LAND LOR BAND BOR
-%token ASSIGN SC SM GR BT
+%token ASSIGN SC SM GR BT EOL EOFF
 %token<sval> IDENTIFIER VARIABLE
 
-
+%type <program> program_main
 %type <program> program
 %type <command> command
 %type <assignable> assignable
@@ -51,7 +53,16 @@
 %type <variable_call> variable_call 
 
 %%
-program                 : /* blank */ {  }
+program_main            : program EOL { $$ = $1; }
+                        | program EOFF { $$ = $1; }
+                        ;
+
+program                 : /* blank */ {
+                            $$ = new Program(); root = $$;
+                            #ifdef DEBUG
+                                cout << "Program found";
+                            #endif
+                            }
                         | program command { auto commands = $1->getCommands(); commands.push_back($2);
                             $1->setCommands(commands); }
                         | program pipe_expression { auto commands = $1->getCommands(); commands.push_back($2);
@@ -90,7 +101,12 @@ assignable              : backtick_expression { $$ = $1; }
                         | variable_call { $$ = $1; }
                         ;
 
-backtick_expression     : BT program BT { $$ = new BackTickExpr($2); }
+backtick_expression     : BT program BT {
+                            $$ = new BackTickExpr($2);
+                            #ifdef DEBUG
+                                cout << "Backtick expr found" << endl;
+                            #endif
+                            }
                         ;
 
 identifier              : IDENTIFIER { 
@@ -118,8 +134,6 @@ void yyerror (char const *s)
 
 int main(int argc, char *argv[])
 {
-  	do {
-  		  yyparse();
-  	} while (true);
+    yyparse();
   	return 0;
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 CURR=`pwd`
 cd `dirname $0`
 flex -o lexer.cpp lexer.flex
