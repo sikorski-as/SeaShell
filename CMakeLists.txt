@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 14)
 #         src/structures/Assignable.cpp
 #         src/structures/BackTickExpr.cpp
 #         src/structures/Command.cpp
-#         src/structures/Indentifier.cpp
+#         src/structures/Identifier.cpp
 #         src/structures/Node.cpp
 #         src/structures/PipeExpr.cpp
 #         src/structures/Program.cpp
@@ -26,7 +26,7 @@ set(CMAKE_CXX_STANDARD 14)
 #         src/structures/Assignable.cpp
 #         src/structures/BackTickExpr.cpp
 #         src/structures/Command.cpp
-#         src/structures/Indentifier.cpp
+#         src/structures/Identifier.cpp
 #         src/structures/Node.cpp
 #         src/structures/PipeExpr.cpp
 #         src/structures/Program.cpp
@@ -48,17 +48,18 @@ set(CMAKE_CXX_STANDARD 14)
 #         tests/TestMain.cpp
 # )
 
-add_executable(parse 
-        src/structures/Assignable.cpp
-        src/structures/BackTickExpr.cpp
-        src/structures/Command.cpp
-        src/structures/Indentifier.cpp
-        src/structures/Node.cpp
-        src/structures/PipeExpr.cpp
-        src/structures/Program.cpp
-        src/structures/RedirectionExpr.cpp
-        src/structures/VariableAssignment.cpp
-        src/structures/VariableCall.cpp
+add_executable(parse
+
+        src/structures/Assignable.cpp src/structures/Assignable.h
+        src/structures/BackTickExpr.cpp src/structures/BackTickExpr.h
+        src/structures/Command.cpp src/structures/Command.h
+        src/structures/Identifier.cpp src/structures/Identifier.h
+        src/structures/Node.cpp src/structures/Node.h
+        src/structures/PipeExpr.cpp src/structures/PipeExpr.h
+        src/structures/Program.cpp src/structures/Program.h
+        src/structures/RedirectionExpr.cpp src/structures/RedirectionExpr.h
+        src/structures/VariableAssignment.cpp src/structures/VariableAssignment.h
+        src/structures/VariableCall.cpp src/structures/VariableCall.h
         
         src/lexer.cpp
 
@@ -67,4 +68,5 @@ add_executable(parse
         src/modules/Cleaner.cpp src/modules/Cleaner.h
 
         src/parser.cpp src/parser.hpp
+        src/main.cpp
 )

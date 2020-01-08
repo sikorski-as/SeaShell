@@ -35,7 +35,7 @@ NodeType RedirectionExpr::getType() {
 std::string RedirectionExpr::toString() {
     std::string ans;
     if (this->input && this->output)
-        ans = this->command->toString() + " < " + this->input->toString() + " < " + this->output->toString();
+        ans = this->command->toString() + " > " + this->output->toString() + " < " + this->input->toString();
     else if (this->input)
         ans = this->command->toString() + " < " + this->input->toString();
     else if (this->output)
