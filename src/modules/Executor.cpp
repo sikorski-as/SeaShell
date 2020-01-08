@@ -7,6 +7,7 @@
 #include <string>
 #include <string.h>
 #include <errno.h>
+#include <fstream>
 #include "Executor.h"
 #include "Context.h"
 #include "../structures/VariableAssignment.h"
@@ -160,7 +161,7 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
     for (int i = 0; i < pipelineLength; i++){
         Node* pipeNode = pipes[i];
         NodeType nodeType = pipeNode->getType();
-        std::cout<<"Forking "<<i<<std::endl;
+        // std::cout<<"Forking "<<i<<std::endl;
         pid_t currPid = fork();
         if(currPid == 0) { // child process
             
@@ -169,6 +170,7 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
                 int write_desc = open((fifo_name_prefix + std::to_string(i)).c_str(), O_WRONLY); // open first write FIFO
                 dup2(write_desc,1);
                 close(write_desc);
+                close(0);
             } else {
                 int read_desc = open((fifo_name_prefix + std::to_string(i-1)).c_str(), O_RDONLY); // open read FIFO
                 int write_desc = open((fifo_name_prefix + std::to_string(i)).c_str(), O_WRONLY); // open write FIFO
@@ -187,46 +189,47 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
                     // BELOW FOR TESTING
                     Identifier* cmdName = dynamic_cast<Identifier*>(cmdNode->getCommandName());
                     std::string cmdNameString = cmdName->getIdentifier();
-                    std::cout<<"CMD: "<<cmdNameString;
+                    // std::cout<<"CMD: "<<cmdNameString<<std::endl;
                     
                     std::vector<Node*> cmdArgs = cmdNode->getArguments();
+                    // std::cout<<"Size: "<<cmdArgs.size()<<std::endl;
                     char* argv[cmdArgs.size()+2];
                     argv[0] = const_cast<char*>(cmdNameString.c_str());
                     for(int j = 1; j <= cmdArgs.size(); j++){
-                        auto arg = cmdArgs[j];
+                        auto arg = cmdArgs[j-1];
                         Identifier* identifierArg = dynamic_cast<Identifier*>(arg);
                         std::string argString = identifierArg->getIdentifier();
-                        std::cout<<argString;
+                        // std::cout<<argString<<std::endl;
                         argv[j] = const_cast<char*>(argString.c_str());
                     }
                     argv[cmdArgs.size()+1] = NULL;
-                    execvp(argv[0], argv);
-                    // return "";
-                    std::cout<<strerror(errno)<<std::endl;
+                    int outCode = execvp(argv[0], argv);
+                    // std::cout<<"OUTCODE: "<<outCode<<" for: "<<i<<std::endl;
+                    if(outCode < 0) exit(0);
+                    // std::cout<<strerror(errno)<<std::endl;
                 break;
             }
         } else if(currPid < 0) {
             throw std::runtime_error("Unable to start subprocess for pipeline element: "+std::to_string(i));
         } else { // parent process
-            std::cout<<"Saving pid: "<<pids[i]<<std::endl;
             pids[i] = currPid;
+            // std::cout<<"Saving pid: "<<pids[i]<<std::endl;
         }
     }
 
     // Below fragment reachable only from parent
-    for(int i = 0; i < pipelineLength; i++){
-        int status = 0;
-        std::cout<<"Waiting for: "<<pids[i];
-        waitpid(pids[i], &status, 0);
-    }
-    
     std::string output = "";
-    int last_read_desc = open((fifo_name_prefix + std::to_string(pipelineLength-1)).c_str(), O_RDONLY); // open last read FIFO
-    dup2(last_read_desc, 0);
-    for (std::string line; std::getline(std::cin, line);) {
+    std::ifstream last_read_desc{(fifo_name_prefix + std::to_string(pipelineLength-1)).c_str()};
+    for (std::string line; std::getline(last_read_desc, line);) {
         output += line;
     }
-    close(last_read_desc);
+    last_read_desc.close();
+
+    for(int i = 0; i < pipelineLength; i++){
+        int status = 0;
+        // std::cout<<"Waiting for: "<<pids[i]<<std::endl;
+        waitpid(pids[i], &status, 0);
+    }
 
     for(int i = 0; i < pipelineLength; i++) // this works when all processes are finished
         unlink((fifo_name_prefix + std::to_string(i)).c_str());

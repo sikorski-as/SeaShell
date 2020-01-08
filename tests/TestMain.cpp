@@ -20,9 +20,8 @@ int main() {
 
     auto ex = Executor();
     // ex.execute(assignment);
-    // std::cout << "DUPA" << std::endl;
-    std::cout << "Pipe test result: " << ex.executePipeExpression(dynamic_cast<PipeExpr*>(pipe1.getCommands()[0]));
-    // std::cout << "DUPA2";
+    std::cout << "Pipe1 test result: " << ex.executePipeExpression(dynamic_cast<PipeExpr*>(pipe1.getCommands()[0])) << std::endl;
+    std::cout << "Pipe2 test result: " << ex.executePipeExpression(dynamic_cast<PipeExpr*>(pipe2.getCommands()[0])) << std::endl;
 
 
 // for testing assigning variable call to another variable TODO make test for it

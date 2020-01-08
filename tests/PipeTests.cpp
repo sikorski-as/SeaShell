@@ -25,6 +25,39 @@ Program generateSimplePipe() {
     return Program(programCommands);
 }
 
+// a=b | wc | tee diag.txt
+Program generateErroneousPipe() { // first doesn't write to stdout
+    // a=b
+    Identifier* echo = new Identifier("a=b");
+    std::vector<Node*> echoArguments;
+    /* Identifier* arg = new Identifier("\"a bb\"");
+    echoArguments.push_back(arg); */
+    Command* echoCommand = new Command(echo, echoArguments);
+
+    // wc
+    Identifier* wc = new Identifier("wc");
+    std::vector<Node*> wcArguments;
+    Command* wcCommand = new Command(wc, wcArguments);
+
+    // tee
+    Identifier* tee = new Identifier("tee");
+    std::vector<Node*> teeArguments;
+    Identifier* arg = new Identifier("diag.txt");
+    teeArguments.push_back(arg);
+    Command* teeCommand = new Command(tee, teeArguments);
+
+    // pipe
+    std::vector<Node*> pipes;
+    pipes.push_back(echoCommand);
+    pipes.push_back(teeCommand);
+    pipes.push_back(wcCommand);
+    PipeExpr* pipe = new PipeExpr(pipes);
+
+    std::vector<Node*> programCommands;
+    programCommands.push_back(pipe);
+    return Program(programCommands);
+}
+
 // cat in.txt | grep aaa | wc
 Program generateManyPipes() {
     // cat in.txt
