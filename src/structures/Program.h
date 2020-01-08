@@ -11,7 +11,8 @@ class Program: public Node {
         ~Program();    
         std::vector<Node*> getCommands();
         void setCommands(std::vector<Node*> commands);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         std::vector<Node*> commands;
 };

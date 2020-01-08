@@ -11,7 +11,8 @@ class Identifier : public Assignable {
         ~Identifier();    
         std::string getIdentifier();
         void setIdentifier(std::string identifier);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         std::string identifier;
 };

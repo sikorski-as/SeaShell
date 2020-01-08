@@ -24,3 +24,7 @@ void VariableAssignment::setValue(Assignable* assigned){
 NodeType VariableAssignment::getType() {
     return this->type;
 }
+
+std::string VariableAssignment::toString() {
+    return this->name + " = " + this->assigned->toString();
+}

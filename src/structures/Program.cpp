@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Program.h"
 
 Program::Program() {
@@ -16,4 +17,13 @@ void Program::setCommands(std::vector<Node*> commands){
 }
 NodeType Program::getType() {
     return this->type;
+}
+
+std::string Program::toString() {
+    std::ostringstream imploded;
+    for (auto command : this->commands) {
+        imploded << command->toString() << " ";
+    }
+    std::string ans = imploded.str();
+    return ans.substr(0, ans.length() - 1);
 }

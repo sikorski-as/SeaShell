@@ -1,4 +1,5 @@
 #include "Command.h"
+#include <sstream>
 
 Command::Command() {
     this->type = NodeType::COMMAND;
@@ -18,9 +19,18 @@ void Command::setCommandName(Node* commandName){
 std::vector<Node*> Command::getArguments(){
     return this->arguments;
 }
-void Command::setArguments(std::vector<Node*> argumentse){
+void Command::setArguments(std::vector<Node*> arguments){
     this->arguments = arguments;
 }
 NodeType Command::getType() {
     return this->type;
+}
+
+std::string Command::toString() {
+    std::ostringstream imploded;
+    imploded << this->commandName->toString();
+    for (auto arg : this->arguments) {
+        imploded << " " << arg->toString();
+    }
+    return imploded.str();
 }

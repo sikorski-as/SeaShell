@@ -17,3 +17,7 @@ void VariableCall::setName(std::string name){
 NodeType VariableCall::getType() {
     return this->type;
 }
+
+std::string VariableCall::toString() {
+    return this->name;
+}

@@ -14,7 +14,8 @@ class Command : public Node {
         void setCommandName(Node* commandName);
         std::vector<Node*> getArguments();
         void setArguments(std::vector<Node*> arguments);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         Node* commandName; //backTick expr / identifier
         std::vector<Node*> arguments;

@@ -11,7 +11,8 @@ class PipeExpr : public Node {
         ~PipeExpr();    
         std::vector<Node*> getPipes();
         void setPipes(std::vector<Node*> pipes);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         std::vector<Node*> pipes;
 };

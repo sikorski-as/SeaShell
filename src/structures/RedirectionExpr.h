@@ -14,7 +14,8 @@ class RedirectionExpr : public Node {
         void setInput(Node* input);
         Node* getOutput();
         void setOutput(Node* output);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         Node* command;
         Node* input;

@@ -31,3 +31,16 @@ void RedirectionExpr::setOutput(Node* output){
 NodeType RedirectionExpr::getType() {
     return this->type;
 }
+
+std::string RedirectionExpr::toString() {
+    std::string ans;
+    if (this->input && this->output)
+        ans = this->command->toString() + " < " + this->input->toString() + " < " + this->output->toString();
+    else if (this->input)
+        ans = this->command->toString() + " < " + this->input->toString();
+    else if (this->output)
+        ans = this->command->toString() + " > " + this->output->toString();
+    else
+        ans = this->command->toString();
+    return ans;
+}

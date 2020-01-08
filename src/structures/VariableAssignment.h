@@ -14,7 +14,8 @@ class VariableAssignment : public Node {
         void setName(std::string name);
         Assignable* getValue();
         void setValue(Assignable* assigned);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         std::string name;
         Assignable* assigned;

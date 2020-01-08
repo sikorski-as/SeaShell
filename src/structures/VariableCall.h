@@ -11,7 +11,8 @@ class VariableCall : public Assignable {
         ~VariableCall();    
         std::string getName();
         void setName(std::string name);
-        NodeType getType();
+        NodeType getType() override;
+        std::string toString() override;
     private:
         std::string name;
 };

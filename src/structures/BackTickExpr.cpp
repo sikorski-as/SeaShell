@@ -17,3 +17,7 @@ void BackTickExpr::setProgram(Program* program){
 NodeType BackTickExpr::getType() {
     return this->type;
 }
+
+std::string BackTickExpr::toString() {
+    return "`" + this->program->toString() + "`";
+}

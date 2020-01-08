@@ -17,3 +17,7 @@ void Identifier::setIdentifier(std::string identifier){
 NodeType Identifier::getType() {
     return this->type;
 }
+
+std::string Identifier::toString() {
+    return this->identifier;
+}
