@@ -16,9 +16,10 @@ int main() {
     Program outRedirection =  generateOutputRedirection();
     Program inRedirection = generateInputRedirection();
     Program redirection = generateBothWayRedirection();
+    Program backTickExpression = generateSimpleBacktick();
 
     auto ex = Executor();
-    ex.execute(assignment);
+    ex.execute(backTickExpression);
 
 // for testing assigning variable call to another variable TODO make test for it
     // std::string variableName = "local2";
@@ -28,6 +29,8 @@ int main() {
     // commands.push_back(&varAssignment);
     // Program p = Program(commands);
     // ex.execute(p);
+
+
 
 
     Cleaner cleaner = Cleaner();

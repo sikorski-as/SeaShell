@@ -8,5 +8,6 @@
 #include "ExportTests.h"
 #include "PipeTests.h"
 #include "RedirectionTests.h"
+#include "BacktickTests.h"
 
 #endif
