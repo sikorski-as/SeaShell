@@ -1,6 +1,7 @@
 #include "AllTests.h"
 #include "../src/modules/Executor.h"
 #include "../src/modules/Cleaner.h"
+#include <iostream>
 
 int main() {
     Program pwd = generateSimplePwd();
@@ -44,6 +45,14 @@ int main() {
     cleaner.clean(&outRedirection);
     cleaner.clean(&inRedirection);
     cleaner.clean(&redirection);
+
+    // Context tests
+    testContextNoReplecement();
+    testContextNormalReplacements();
+    testEscapedDollarInText();
+    testEscapedDollarInVariable();
+    testSingleDollars();
+    testNonExistingVariables();
 
     return 0;
 }
