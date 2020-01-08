@@ -1,4 +1,4 @@
-%{
+%code requires {
   #include "structures/RedirectionExpr.h"
   #include "structures/VariableAssignment.h"
   #include "structures/VariableCall.h"
@@ -12,13 +12,19 @@
   #include <iostream>
   #define DEBUG
 
-  int yylex(void);
+  using namespace std;
+    int yylex(void);
+    void set_input_string(const char* in);
+    void end_lexical_scan(void);
+    Program *parse(std::string);
+}
+%{
   extern "C" int yyparse();
   extern "C" int errors;
   void yyerror (char const *s);
   int errors = 0;
-  using namespace std;
-  Program* root;
+#include "structures/Program.h"
+Program* root;
 %}
 // Tokens
 
@@ -39,9 +45,10 @@
 %start program_main
 %token LAND LOR BAND BOR
 %token ASSIGN SC SM GR BT EOL EOFF
-%token<sval> IDENTIFIER VARIABLE
+%token<sval> IDENTIFIER VARIABLE BT_EXPRESSION
 
 %type <program> program_main
+%type <node> proto_program
 %type <program> program
 %type <command> command
 %type <assignable> assignable
@@ -53,25 +60,45 @@
 %type <variable_call> variable_call 
 
 %%
-program_main            : program EOL { $$ = $1; }
-                        | program EOFF { $$ = $1; }
+program_main            : program EOL {
+                            $$ = $1; root = $$;
+                            #ifdef DEBUG
+                                cout << "1 Program found" << $$->toString() << endl;
+                            #endif
+                          }
+                        | program EOFF {
+                            $$ = $1; root = $$;
+                            #ifdef DEBUG
+                                cout << "2 Program found" << $$->toString() << endl;
+                            #endif
+                          }
                         ;
 
-program                 : /* blank */ {
-                            $$ = new Program(); root = $$;
+program                 : program proto_program {
+                            auto commands = $1->getCommands();
+                            commands.push_back($2);
+                            $1->setCommands(commands);
+                            $$ = $1;
                             #ifdef DEBUG
-                                cout << "Program found";
+                                cout << "Program found" << $$->toString() << endl;
                             #endif
-                            }
-                        | program command { auto commands = $1->getCommands(); commands.push_back($2);
-                            $1->setCommands(commands); }
-                        | program pipe_expression { auto commands = $1->getCommands(); commands.push_back($2);
-                            $1->setCommands(commands); }
-                        | program variable_assignment { auto commands = $1->getCommands(); commands.push_back($2);
-                            $1->setCommands(commands); }
-                        | program redirection_expression { auto commands = $1->getCommands(); commands.push_back($2);
-                            $1->setCommands(commands); }
-                        | program SC { $$ = $1; }
+                          }
+                        | proto_program {
+                            std::vector<Node*> commands;
+                            commands.push_back($1);
+                            $$ = new Program(commands);
+                          }
+                        ;
+
+proto_program           : command {
+                            $$ = $1;
+                            #ifdef DEBUG
+                                cout << "Proto program found: " << $$->toString() << endl;
+                            #endif
+                          }
+                        | pipe_expression { $$ = $1; }
+                        | variable_assignment { $$ = $1; }
+                        | redirection_expression { $$ = $1; }
                         ;
 
 variable_assignment     : identifier ASSIGN assignable { $$ = new VariableAssignment($1->getIdentifier(), $3); 
@@ -90,50 +117,65 @@ pipe_expression         : pipe_expression BOR command { auto pipes = $1->getPipe
                             $$ = new PipeExpr(pipes); }
                         ;
 
-command                 : command assignable { auto args = $1->getArguments(); args.push_back($2);
-                            $1->setArguments(args); $$ = $1; }
+command                 : command assignable {
+                            auto args = $1->getArguments();
+                            args.push_back($2);
+                            $1->setArguments(args); $$ = $1;
+                            #ifdef DEBUG
+                                cout << "Command found: " << $$->toString() << endl;
+                            #endif
+                          }
                         | assignable { std::vector<Node*> args; 
                             $$ = new Command($1, args); }
                         ;
 
 assignable              : backtick_expression { $$ = $1; }
-                        | identifier { $$ = $1; }
+                        | identifier {
+                            $$ = $1;
+                            #ifdef DEBUG
+                                cout << "Assignable found: " << $$->toString() << endl;
+                            #endif
+                          }
                         | variable_call { $$ = $1; }
                         ;
 
 backtick_expression     : BT program BT {
                             $$ = new BackTickExpr($2);
                             #ifdef DEBUG
-                                cout << "Backtick expr found" << endl;
+                                cout << "Backtick expr found: " << $$->toString() << endl;
                             #endif
-                            }
+                          }
                         ;
 
 identifier              : IDENTIFIER { 
                             $$ = new Identifier(string($1)); 
                             #ifdef DEBUG
-                                cout << "Identifier found: "<< $1 <<endl;
+                                cout << "Identifier found: " << $$->toString() <<endl;
                             #endif
-                            }
+                          }
                         ;
 
 variable_call           : VARIABLE { 
                             $$ = new VariableCall(string($1)); 
                             #ifdef DEBUG
-                                cout << "Variable found: "<< $1 <<endl;
+                                cout << "Variable found: " << $$->toString() <<endl;
                             #endif
-                            }
+                          }
                         ;
 %%
 
 void yyerror (char const *s)
 {
     errors++;
-	  printf("Error: %s\n", s);
+	//printf("Error: %s\n", s);
 }
 
-int main(int argc, char *argv[])
+Program *parse(std::string command)
 {
+    root = NULL;
+    set_input_string(command.c_str());
     yyparse();
-  	return 0;
+    end_lexical_scan();
+    cout << endl << endl;
+    return root;
 }

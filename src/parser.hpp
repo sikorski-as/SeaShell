@@ -39,6 +39,29 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 1 "parser.ypp" /* yacc.c:1909  */
+
+  #include "structures/RedirectionExpr.h"
+  #include "structures/VariableAssignment.h"
+  #include "structures/VariableCall.h"
+  #include "structures/Program.h"
+  #include "structures/PipeExpr.h"
+  #include "structures/Node.h"
+  #include "structures/Identifier.h"
+  #include "structures/Command.h"
+  #include "structures/BackTickExpr.h"
+
+  #include <iostream>
+  #define DEBUG
+
+  using namespace std;
+    int yylex(void);
+    void set_input_string(const char* in);
+    void end_lexical_scan(void);
+    Program *parse(std::string);
+
+#line 65 "parser.hpp" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -57,7 +80,8 @@ extern int yydebug;
     EOL = 267,
     EOFF = 268,
     IDENTIFIER = 269,
-    VARIABLE = 270
+    VARIABLE = 270,
+    BT_EXPRESSION = 271
   };
 #endif
 
@@ -66,7 +90,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 25 "parser.ypp" /* yacc.c:1909  */
+#line 31 "parser.ypp" /* yacc.c:1909  */
 
     char* sval;
     BackTickExpr* backtick_expression;
@@ -80,7 +104,7 @@ union YYSTYPE
     VariableAssignment* variable_assignment;
     VariableCall* variable_call;
 
-#line 84 "parser.hpp" /* yacc.c:1909  */
+#line 108 "parser.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
