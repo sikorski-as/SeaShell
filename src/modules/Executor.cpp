@@ -91,8 +91,7 @@ std::string Executor::executeVariableAssignment(VariableAssignment *varAssignmen
     }
     else if(type == NodeType::IDENTIFIER){
         auto value = dynamic_cast<Identifier*>(assignable);
-        // TODO value powinno być sprawdzane pod kątem replacowania zmiennych
-        this->context.setVariable(varAssignment->getName(), value->getIdentifier());
+        this->context.setVariable(varAssignment->getName(), context.resolveVariables(value->getIdentifier()));
         // std::cout << "[executeVariableAssignment] IDENT : " << this->context.getVariable(varAssignment->getName()) << std::endl;
     } else if(type == NodeType::VARIABLE_CALL) {
         auto variableCall = dynamic_cast<VariableCall*>(assignable);
@@ -156,7 +155,7 @@ std::string Executor::executeBackTickExpression(BackTickExpr* backTickExpr) {
 
     return backTickString;
 
-    // lolek = 1234; echo `lolek=5678; echo $lolek` $lolek
+    // lolek=1234; echo `lolek=5678; echo $lolek` $lolek
     // wypisuje: 5678 1234
 }
 
