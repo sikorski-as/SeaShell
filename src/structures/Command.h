@@ -7,7 +7,7 @@
 
 class Command {
 public:
-    std::string commandName;
+    Value commandName;
     std::vector<Value> arguments;
     std::vector<Value> inputFile; // wc < a.txt < b.txt przyjmuje tylko argument b i wykonuje wc
     std::vector<Value> outputFile; // echo "dupa" >"a.txt" >"b.txt" spowoduje ze tylko w b bedzie dupa, a a sie utworzy i nic w nim nie bedzie

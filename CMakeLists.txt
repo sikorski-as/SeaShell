@@ -38,20 +38,36 @@ add_executable(uxp
 #        )
 
  add_executable(exec_test
-         src/structures/Assignable.cpp
-         src/structures/BackTickExpr.cpp
-         src/structures/Command.cpp
-         src/structures/Indentifier.cpp
-         src/structures/Node.cpp
-         src/structures/PipeExpr.cpp
-         src/structures/Program.cpp
-         src/structures/RedirectionExpr.cpp
-         src/structures/VariableAssignment.cpp
-         src/structures/VariableCall.cpp
+         src/structures/Command.h
+         src/structures/Node.h
+         src/structures/NodeType.h
+         src/structures/Program.h
+         src/structures/Pipeline.h
+         src/structures/Value.h
+         src/structures/Variable.h
+         src/structures/VarPip.h
 
-         src/modules/Executor.cpp src/modules/Executor.h
+         src/structures/Command.cpp
+         src/structures/Node.cpp
+         src/structures/Program.cpp
+         src/structures/Pipeline.cpp
+         src/structures/Value.cpp
+         src/structures/Variable.cpp
+         src/structures/VarPip.cpp
+
+        # src/modules/Executor.cpp src/modules/Executor.h
          src/modules/Context.cpp src/modules/Context.h
-         src/modules/Cleaner.cpp src/modules/Cleaner.h
+        # src/modules/Cleaner.cpp src/modules/Cleaner.h
+
+
+         tests/PwdTests.h
+         tests/CdTests.h
+         tests/EchoTests.h
+         tests/VariableAssignmentTests.h
+         tests/ExportTests.h
+         tests/PipeTests.h
+         tests/RedirectionTests.h
+         tests/ContextTests.h
 
          tests/PwdTests.cpp
          tests/CdTests.cpp

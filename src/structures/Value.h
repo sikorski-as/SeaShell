@@ -13,6 +13,7 @@ protected:
 public:
     explicit Value(std::string);
     explicit Value(Program*);
+    Value() = default;
     Value(Value const &) = default;
 
     std::string execute(Context *context = nullptr);
