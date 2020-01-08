@@ -150,7 +150,7 @@ std::string Executor::executeRedirectionExpression(RedirectionExpr* redirectionE
 std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
     std::vector<Node*> pipes = pipeExpr->getPipes();
     int pipelineLength = pipes.size();
-    int pids[pipelineLength];
+    pid_t pids[pipelineLength];
     std::string fifo_name_prefix = "/tmp/seashell_fifo.";
     for(int i = 0; i < pipelineLength; i++){
         std::string fifo_name = fifo_name_prefix + std::to_string(i);
@@ -160,8 +160,8 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
     for (int i = 0; i < pipelineLength; i++){
         Node* pipeNode = pipes[i];
         NodeType nodeType = pipeNode->getType();
-        std::cout<<"Forking "<<i;
-        int currPid = fork();
+        std::cout<<"Forking "<<i<<std::endl;
+        pid_t currPid = fork();
         if(currPid == 0) { // child process
             
             // stdin and stdout with FIFO shenanigans
@@ -201,14 +201,14 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
                     }
                     argv[cmdArgs.size()+1] = NULL;
                     execvp(argv[0], argv);
-                    return "";
-                    // std::cout<<strerror(errno);
+                    // return "";
+                    std::cout<<strerror(errno)<<std::endl;
                 break;
             }
         } else if(currPid < 0) {
             throw std::runtime_error("Unable to start subprocess for pipeline element: "+std::to_string(i));
         } else { // parent process
-            std::cout<<"Saving pid: "<<pids[i];
+            std::cout<<"Saving pid: "<<pids[i]<<std::endl;
             pids[i] = currPid;
         }
     }
