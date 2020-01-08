@@ -1,5 +1,12 @@
 
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/wait.h> // waitpid
+#include <fcntl.h>
+#include <unistd.h> // fork
+#include <string>
+#include <string.h>
+#include <errno.h>
 #include "Executor.h"
 #include "Context.h"
 #include "../structures/VariableAssignment.h"
@@ -142,7 +149,89 @@ std::string Executor::executeRedirectionExpression(RedirectionExpr* redirectionE
 
 std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
     std::vector<Node*> pipes = pipeExpr->getPipes();
-    throw std::runtime_error("TODO");
+    int pipelineLength = pipes.size();
+    int pids[pipelineLength];
+    std::string fifo_name_prefix = "/tmp/seashell_fifo.";
+    for(int i = 0; i < pipelineLength; i++){
+        std::string fifo_name = fifo_name_prefix + std::to_string(i);
+        mkfifo(fifo_name.c_str(), 0666);
+    }
+
+    for (int i = 0; i < pipelineLength; i++){
+        Node* pipeNode = pipes[i];
+        NodeType nodeType = pipeNode->getType();
+        std::cout<<"Forking "<<i;
+        int currPid = fork();
+        if(currPid == 0) { // child process
+            
+            // stdin and stdout with FIFO shenanigans
+            if(i == 0){
+                int write_desc = open((fifo_name_prefix + std::to_string(i)).c_str(), O_WRONLY); // open first write FIFO
+                dup2(write_desc,1);
+                close(write_desc);
+            } else {
+                int read_desc = open((fifo_name_prefix + std::to_string(i-1)).c_str(), O_RDONLY); // open read FIFO
+                int write_desc = open((fifo_name_prefix + std::to_string(i)).c_str(), O_WRONLY); // open write FIFO
+                dup2(read_desc,0); // read FIFO descriptor to stdin
+                close(read_desc);
+                dup2(write_desc,1); // write FIFO descriptor to stdout
+                close(write_desc);
+            }
+
+            // actual command execution
+            switch(nodeType){
+                case NodeType::COMMAND:
+                    auto cmdNode = dynamic_cast<Command*>(pipeNode);
+                    // executeCommand(cmdNode);
+
+                    // BELOW FOR TESTING
+                    Identifier* cmdName = dynamic_cast<Identifier*>(cmdNode->getCommandName());
+                    std::string cmdNameString = cmdName->getIdentifier();
+                    std::cout<<"CMD: "<<cmdNameString;
+                    
+                    std::vector<Node*> cmdArgs = cmdNode->getArguments();
+                    char* argv[cmdArgs.size()+2];
+                    argv[0] = const_cast<char*>(cmdNameString.c_str());
+                    for(int j = 1; j <= cmdArgs.size(); j++){
+                        auto arg = cmdArgs[j];
+                        Identifier* identifierArg = dynamic_cast<Identifier*>(arg);
+                        std::string argString = identifierArg->getIdentifier();
+                        std::cout<<argString;
+                        argv[j] = const_cast<char*>(argString.c_str());
+                    }
+                    argv[cmdArgs.size()+1] = NULL;
+                    execvp(argv[0], argv);
+                    return "";
+                    // std::cout<<strerror(errno);
+                break;
+            }
+        } else if(currPid < 0) {
+            throw std::runtime_error("Unable to start subprocess for pipeline element: "+std::to_string(i));
+        } else { // parent process
+            std::cout<<"Saving pid: "<<pids[i];
+            pids[i] = currPid;
+        }
+    }
+
+    // Below fragment reachable only from parent
+    for(int i = 0; i < pipelineLength; i++){
+        int status = 0;
+        std::cout<<"Waiting for: "<<pids[i];
+        waitpid(pids[i], &status, 0);
+    }
+    
+    std::string output = "";
+    int last_read_desc = open((fifo_name_prefix + std::to_string(pipelineLength-1)).c_str(), O_RDONLY); // open last read FIFO
+    dup2(last_read_desc, 0);
+    for (std::string line; std::getline(std::cin, line);) {
+        output += line;
+    }
+    close(last_read_desc);
+
+    for(int i = 0; i < pipelineLength; i++) // this works when all processes are finished
+        unlink((fifo_name_prefix + std::to_string(i)).c_str());
+
+    return output;
 }
 
 std::string Executor::executeBackTickExpression(BackTickExpr* backTickExpr) {

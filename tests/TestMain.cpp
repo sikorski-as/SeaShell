@@ -1,4 +1,5 @@
 #include "AllTests.h"
+#include <iostream>
 #include "../src/modules/Executor.h"
 #include "../src/modules/Cleaner.h"
 
@@ -18,7 +19,8 @@ int main() {
     Program redirection = generateBothWayRedirection();
 
     auto ex = Executor();
-    ex.execute(assignment);
+    // ex.execute(assignment);
+    std::cout << "Pipe test result: " << ex.executePipeExpression(dynamic_cast<PipeExpr*>(pipe1.getCommands()[0]));
 
 // for testing assigning variable call to another variable TODO make test for it
     // std::string variableName = "local2";
