@@ -18,8 +18,8 @@ void Command::setCommandName(Node* commandName){
 std::vector<Node*> Command::getArguments(){
     return this->arguments;
 }
-void Command::setArguments(std::vector<Node*> argumentse){
-    this->arguments = arguments;
+void Command::setArguments(std::vector<Node*> args){
+    this->arguments = args;
 }
 NodeType Command::getType() {
     return this->type;
