@@ -2,6 +2,8 @@
 #define NODE_TYPE_H
 
 enum class NodeType {
+    NONE,
+
     PROGRAM,
     PIPE_EXPR,
     REDIRECTION_EXPR,

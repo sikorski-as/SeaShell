@@ -70,7 +70,7 @@ std::string Executor::executeProgram(Program &program) { // TODO test
                 }
                 default:
                     throw std::runtime_error("Unexpected input");
-        }
+            }
         } catch (std::runtime_error error) {
             output += error.what();
         }
@@ -109,11 +109,32 @@ std::string Executor::executeCommand(Command *command) {
     Node* commandName = command->getCommandName(); //backTick expr / identifier
     std::vector<Node*> arguments = command->getArguments(); // TODO przekazujac argumenty jesli IDENTIFIER powinno być sprawdzane pod kątem replacowania zmiennych
     NodeType commandNameType = commandName->getType();
+
+    auto nodeToString = [this](Node* node) -> std::string{
+        auto type = node->getType();
+        if(type == NodeType::IDENTIFIER) {
+            return dynamic_cast<Identifier*>(node)->getIdentifier();
+        } else if(type == NodeType::BACKTICK_EXPR) {
+            return executeBackTickExpression(dynamic_cast<BackTickExpr*>(node));
+        }
+        throw std::runtime_error("Unexpected type of node to stringify");
+    };
+
     if(commandNameType == NodeType::IDENTIFIER) {
         // TODO sprawdz czy wbudowane czy niewbudowane
-        throw std::runtime_error("TODO");
+        std::cout << "Executing single command " << nodeToString(commandName) << ' ';
+        for(auto& arg: arguments){
+            std::cout << nodeToString(arg) << ' ';
+        }
+        std::cout << std::endl;
+//        throw std::runtime_error("TODO IN PROGRESS");
     } else if(commandNameType == NodeType::BACKTICK_EXPR) {
-        throw std::runtime_error("TODO");
+        std::cout << "Executing single command " << nodeToString(commandName) << ' ';
+        for(auto& arg: arguments){
+            std::cout << nodeToString(arg) << ' ';
+        }
+        std::cout << std::endl;
+//        throw std::runtime_error("TODO IN PROGRESS");
     } else {
         throw std::runtime_error("Unexpected type in the command");
     }
@@ -146,18 +167,16 @@ std::string Executor::executePipeExpression(PipeExpr* pipeExpr) {
 }
 
 std::string Executor::executeBackTickExpression(BackTickExpr* backTickExpr) {
+    // przykład:
+    // lolek = 1234; echo `lolek=5678; echo $lolek` $lolek
+    // wypisuje: 5678 1234
+
     Program* p = backTickExpr->getProgram();
-    Context old = this->context; // TODO copy old context
-
-    throw std::runtime_error("TODO TEST");
+    Context old = this->context;
     std::string backTickString =  this->executeProgram(*p); // TODO w takim razie wywolanie execute powinno byc rozbite na execute i executeProgram i context powinien byc nowy tworzony
-
     this->context = old; // TODO restore context
 
     return backTickString;
-
-    // lolek = 1234; echo `lolek=5678; echo $lolek` $lolek
-    // wypisuje: 5678 1234
 }
 
 

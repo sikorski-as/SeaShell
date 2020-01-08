@@ -1,23 +1,17 @@
-#ifndef COMMAND_H
-#define COMMAND_H
+#ifndef UXP_COMMAND_H
+#define UXP_COMMAND_H
 
-#include <string>
 #include <vector>
-#include "Node.h"
+#include <string>
+#include "Value.h"
 
-class Command : public Node {
-    public:
-        Command();
-        Command(Node* commandName, std::vector<Node*> arguments);
-        ~Command();    
-        Node* getCommandName();
-        void setCommandName(Node* commandName);
-        std::vector<Node*> getArguments();
-        void setArguments(std::vector<Node*> arguments);
-        NodeType getType();
-    private:
-        Node* commandName; //backTick expr / identifier
-        std::vector<Node*> arguments;
+class Command {
+public:
+    std::string commandName;
+    std::vector<Value> arguments;
+    Value inputFile;
+    Value outputFile;
 };
 
-#endif
+
+#endif //UXP_COMMAND_H

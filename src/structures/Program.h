@@ -1,19 +1,16 @@
-#ifndef PROGRAM_H
-#define PROGRAM_H
+#ifndef UXP_PROGRAM_H
+#define UXP_PROGRAM_H
+
 
 #include <vector>
-#include "Node.h"
+#include "../modules/Context.h"
+#include "VarPip.h"
 
-class Program: public Node {
-    public:
-        Program();
-        Program(std::vector<Node*> commands);
-        ~Program();    
-        std::vector<Node*> getCommands();
-        void setCommands(std::vector<Node*> commands);
-        NodeType getType();
-    private:
-        std::vector<Node*> commands;
+class Program {
+public:
+    std::vector<VarPip *> varpips;
+    std::string execute(Context *);
 };
 
-#endif
+
+#endif //UXP_PROGRAM_H

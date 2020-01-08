@@ -1,7 +1,8 @@
 #include <iostream>
-#include "modules/Shell.h"
+#include "structures/Node.h"
 
-int main() {
-    auto sh = Shell();
-    sh.start();
+int main(){
+    Node* n = new Node();
+    std::cout << n->toString() << std::endl << *n << std::endl;
+    return 0;
 }
