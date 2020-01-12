@@ -4,12 +4,6 @@
 #include <ctype.h>
 #include <unistd.h>
 
-Context::Context() {
-    char* dirName = get_current_dir_name();
-    this->setVariable("PWD", dirName);
-    free(dirName);
-}
-
 void Context::setVariable(std::string key, std::string value) {
     this->localVars[key] = value;
 }
@@ -68,4 +62,18 @@ std::string Context::resolveVariables(std::string s) {
         
     }
     return s;
+}
+
+void Context::setWorkingDirectory(std::string newWorkingDirectory) {
+    int result = chdir(newWorkingDirectory.c_str());
+    if(result == -1){
+        // TODO: handle errors
+    }
+}
+
+std::string Context::getWorkingDirectory() {
+    char* workingDirectoryBuffer = get_current_dir_name();
+    std::string workingDirectory = workingDirectoryBuffer;
+    free(workingDirectoryBuffer);
+    return workingDirectory;
 }
