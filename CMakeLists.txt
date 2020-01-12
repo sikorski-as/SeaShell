@@ -19,6 +19,7 @@ add_executable(uxp
 add_executable(tests
         tests/TestMain.cpp
 
+        src/modules/Shell.cpp src/modules/Shell.h
         src/structures/Program.h src/structures/Program.cpp
         src/structures/VarPip.h src/structures/VarPip.cpp
         src/structures/Variable.h src/structures/Variable.cpp
@@ -41,6 +42,7 @@ add_executable(tests
 
 add_executable(parse
         src/main.cpp
+        src/modules/Shell.cpp src/modules/Shell.h
 
         src/structures/Program.h src/structures/Program.cpp
         src/structures/VarPip.h src/structures/VarPip.cpp

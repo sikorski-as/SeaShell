@@ -86,5 +86,5 @@ bool Context::isRunning() {
 }
 
 void Context::stop() {
-    this-running = false;
+    this->running = false;
 }

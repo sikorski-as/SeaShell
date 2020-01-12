@@ -1,4 +1,5 @@
 #include "Shell.h"
+#include "Context.h"
 #include <iostream>
 #include <stdexcept>
 #include <string>
