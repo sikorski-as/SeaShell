@@ -9,5 +9,6 @@ Program generatePipeWithRedirections();
 Program generatePipeWithRedirections2();
 Program generatePipeWithRedirections3();
 Program generatePipeWithRedirections_NoPointers();
+Program generatePipeWithRedirections2_Pointers();
 
 #endif

@@ -26,6 +26,7 @@ int main() {
 
     // Test the West
     Program redirections_nopointers = generatePipeWithRedirections_NoPointers();
+    Program redirection2_pointers = generatePipeWithRedirections2_Pointers();
 
     // Errors
     Program assignmentFailed = variableAssignementFail();
