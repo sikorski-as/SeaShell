@@ -9,7 +9,7 @@ void Shell::start() {
     Context context;
     while(context.isRunning()){
         std::string input;
-        std::cout << "$" << context.getWorkingDirectory() << std::flush;
+        std::cout << "\033[1;44;37mSeaShell\033[0;36m in: \033[0m" << context.getWorkingDirectory() << " $ " << std::flush;
         std::getline(std::cin, input);
         Program * program = parse(input);
         if(program){
