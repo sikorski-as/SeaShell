@@ -5,4 +5,6 @@
 
 Program generateSimpleAssignment();
 
+void testParserGenerateSimpleAssignment();
+
 #endif

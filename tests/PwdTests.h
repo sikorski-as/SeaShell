@@ -5,4 +5,6 @@
 
 Program generateSimplePwd();
 
+void testParserGenerateSimplePwd();
+
 #endif

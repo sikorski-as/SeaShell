@@ -229,3 +229,30 @@ Program generatePipeWithRedirections3() {
     p.varpips = varpips;
     return p;
 }
+
+
+void testParserGenerateSimplePipe() {
+    Program *p = parse("echo \"a bb\" | wc");
+    Program t = generateSimplePipe();
+    assert(p->isEqual(&t));
+}
+void testParserGenerateManyPipes() {
+    Program *p = parse("cat in.txt | grep aaa | wc");
+    Program t = generateManyPipes();
+    assert(p->isEqual(&t));
+}
+void testParserGeneratePipeWithRedirections() {
+    Program *p = parse("cat < filenames.txt | grep aaa > filtered.txt");
+    Program t = generatePipeWithRedirections();
+    assert(p->isEqual(&t));
+}
+void testParserGeneratePipeWithRedirections2() {
+    Program *p = parse("cat < filenames.txt > outfilenames.txt | grep aaa");
+    Program t = generatePipeWithRedirections2();
+    assert(p->isEqual(&t));
+}
+void testParserGeneratePipeWithRedirections3() {
+    Program *p = parse("cat < filenames.txt > outfilenames.txt | grep aaa <  in2.txt");
+    Program t = generatePipeWithRedirections3();
+    assert(p->isEqual(&t));
+}

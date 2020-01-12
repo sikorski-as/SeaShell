@@ -7,6 +7,7 @@
 class VarPip {
 public:
     virtual std::string execute(Context *) = 0;
+    virtual bool isEqual(VarPip *) = 0;
 };
 
 

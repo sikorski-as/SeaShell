@@ -7,4 +7,8 @@ Program generateSimpleEcho(std::string echoArg = "msg");
 Program generateEchoSystemVariable();
 Program generateEchoSystemManyVariable();
 
+void testParserGenerateSimpleEcho(std::string echoArg = "msg");
+void testParserGenerateEchoSystemVariable();
+void testParserGenerateEchoSystemManyVariable();
+
 #endif

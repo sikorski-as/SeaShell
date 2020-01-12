@@ -5,4 +5,6 @@
 
 Program generateSimpleExport();
 
+void testParserGenerateSimpleExport();
+
 #endif

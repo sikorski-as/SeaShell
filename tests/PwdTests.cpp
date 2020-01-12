@@ -15,3 +15,9 @@ Program generateSimplePwd(){
     p->varpips = varpips;
     return *p;
 }
+
+void testParserGenerateSimplePwd() {
+    Program *p = parse("pwd");
+    Program t = generateSimplePwd();
+    assert(p->isEqual(&t));
+}

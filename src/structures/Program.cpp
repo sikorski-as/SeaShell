@@ -18,3 +18,15 @@ std::string Program::execute(Context *context) {
     }
     return out;
 }
+
+bool Program::isEqual(Program *p) {
+    if(p->varpips.size() != this->varpips.size())
+        return false;
+    int i = 0;
+    for(auto varpip: this->varpips) {
+        if(!varpip->isEqual(p->varpips[i]))
+            return false;
+        i++;
+    }
+    return true;
+}

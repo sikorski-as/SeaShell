@@ -11,4 +11,10 @@ Program generatePipeWithRedirections3();
 Program generatePipeWithRedirections_NoPointers();
 Program generatePipeWithRedirections2_Pointers();
 
+void testParserGenerateSimplePipe();
+void testParserGenerateManyPipes();
+void testParserGeneratePipeWithRedirections();
+void testParserGeneratePipeWithRedirections2();
+void testParserGeneratePipeWithRedirections3();
+
 #endif

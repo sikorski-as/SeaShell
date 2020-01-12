@@ -17,6 +17,7 @@ public:
     Value(Value const &) = default;
 
     std::string execute(Context *context = nullptr);
+    bool isEqual(Value);
 };
 
 

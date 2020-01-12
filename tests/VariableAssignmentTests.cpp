@@ -12,3 +12,9 @@ Program generateSimpleAssignment() {
     p->varpips = varpips;
     return *p;
 }
+
+void testParserGenerateSimpleAssignment() {
+    Program *p = parse("local = host");
+    Program t = generateSimpleAssignment();
+    assert(p->isEqual(&t));
+}

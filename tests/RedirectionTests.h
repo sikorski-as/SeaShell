@@ -7,4 +7,8 @@ Program generateOutputRedirection();
 Program generateInputRedirection();
 Program generateBothWayRedirection();
 
+void testParserGenerateOutputRedirection();
+void testParserGenerateInputRedirection();
+void testParserGenerateBothWayRedirection();
+
 #endif

@@ -66,3 +66,19 @@ Program generateBothWayRedirection() {
     p->varpips = varpips;
     return *p;
 }
+
+void testParserGenerateOutputRedirection() {
+    Program *p = parse("ls > out.txt");
+    Program t = generateOutputRedirection();
+    assert(p->isEqual(&t));
+}
+void testParserGenerateInputRedirection() {
+    Program *p = parse("wc < in.txt");
+    Program t = generateInputRedirection();
+    assert(p->isEqual(&t));
+}
+void testParserGenerateBothWayRedirection() {
+    Program *p = parse("grep < in.txt >out.txt aaa");
+    Program t = generateBothWayRedirection();
+    assert(p->isEqual(&t));
+}

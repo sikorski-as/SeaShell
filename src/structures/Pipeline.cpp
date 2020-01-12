@@ -140,3 +140,19 @@ std::string Pipeline::execute(Context* context) {
 
     return output;
 }
+
+
+bool Pipeline::isEqual(VarPip* vp) {
+    if(Pipeline* p = dynamic_cast<Pipeline*>(vp)) {
+        if(this->commands.size() != p->commands.size())
+            return false;
+        int i = 0;
+        for(auto c: this->commands) {
+            if(!c.isEqual(p->commands[i]))
+                return false;
+            i++;
+        }
+        return true;
+    }
+    return false;
+}

@@ -59,3 +59,23 @@ Program generateEchoSystemManyVariable() {
     p->varpips = varpips;
     return *p;
 }
+
+
+
+void testParserGenerateSimpleEcho(std::string echoArg) {
+    Program *p = parse("echo " +  echoArg);
+    Program t = generateSimpleEcho(echoArg);
+    assert(p->isEqual(&t));
+}
+
+void testParserGenerateEchoSystemVariable() {
+    Program *p = parse("echo \"$PATH\"");
+    Program t = generateEchoSystemVariable();
+    assert(p->isEqual(&t));
+}
+
+void testParserGenerateEchoSystemManyVariable() {
+    Program *p = parse("echo \"$PATH $PATH\"");
+    Program t = generateEchoSystemManyVariable();
+    assert(p->isEqual(&t));
+}

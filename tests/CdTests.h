@@ -5,4 +5,6 @@
 
 Program generateSimpleCd();
 
+void testParserGenerateSimpleCd();
+
 #endif

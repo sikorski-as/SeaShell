@@ -10,6 +10,7 @@ class Program {
 public:
     std::vector<VarPip *> varpips;
     std::string execute(Context *);
+    bool isEqual(Program *);
 };
 
 

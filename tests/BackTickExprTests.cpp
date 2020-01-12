@@ -3,9 +3,27 @@
 // `echo pwd`
 Program generateSimpleBackTick() {
 
-    Program echoPwdProgram = generateSimpleEcho("pwd");
+    Program* echoPwdProgram = generateEcho("pwd");
 
-    Value commandName = Value(&echoPwdProgram);
+    Value* commandName = new Value(echoPwdProgram);
+   
+    Command* c = new Command();
+    c->commandName = *commandName;
+    std::vector<Command> commands = {*c};
+
+    Pipeline* pipe = new Pipeline(commands);
+
+    std::vector<VarPip *> varpips = {pipe};
+    Program* p = new Program();
+    p->varpips = varpips;
+    return *p;
+}
+
+// `echo "echo test"`
+Program generateSimpleBackTick2() {
+    Program* echoPwdProgram = generateEcho("echo test");
+
+    Value commandName = Value(echoPwdProgram);
    
     Command c = Command();
     c.commandName = commandName;
@@ -19,29 +37,30 @@ Program generateSimpleBackTick() {
     return p;
 }
 
-// `echo "echo test"`
-Program generateSimpleBackTick2() {
-    Program echoPwdProgram = generateSimpleEcho("echo test");
+Program * generateEcho(std::string echoArg) {
+    Value* commandName = new Value("echo");
+    Value* name = new Value(echoArg);
+    std::vector<Value> arguments = {*name};
 
-    Value commandName = Value(&echoPwdProgram);
-   
-    Command c = Command();
-    c.commandName = commandName;
-    std::vector<Command> commands = {c};
+    Command* c = new Command();
+    c->commandName = *commandName;
+    c->arguments = arguments;
+
+    std::vector<Command> commands = {*c};
 
     Pipeline* pipe = new Pipeline(commands);
 
     std::vector<VarPip *> varpips = {pipe};
-    Program p = Program();
-    p.varpips = varpips;
+    Program* p = new Program();
+    p->varpips = varpips;
     return p;
 }
 
 // `echo "echo"` test
 Program generateBackTickWithArguments() {
-    Program echoPwdProgram = generateSimpleEcho("echo");
+    Program* echoPwdProgram = generateEcho("echo");
 
-    Value commandName = Value(&echoPwdProgram);
+    Value commandName = Value(echoPwdProgram);
     Value argName = Value("test");
     std::vector<Value> arguments = {argName};
     Command c = Command();
@@ -60,8 +79,8 @@ Program generateBackTickWithArguments() {
 // `echo echo a bb` | wc
 Program backTickInSimplePipe() {
     // echo "a bb"
-    Program echoPwdProgram = generateSimpleEcho(" echo a bb");
-    Value commandName = Value(&echoPwdProgram);
+    Program* echoPwdProgram = generateEcho(" echo a bb");
+    Value commandName = Value(echoPwdProgram);
     Command c = Command();
     c.commandName = commandName;
 
@@ -136,8 +155,39 @@ Program pipedBackTickInPipe() {
 }
 
 Program backTickWithVariables() {
-    
+
 }
+
+void testParserGenerateSimpleBackTick() {
+    Program *p = parse("`echo pwd`");
+    Program t = generateSimpleBackTick();
+    assert(p->isEqual(&t));
+}
+
+void testParserGenerateSimpleBackTick2() {
+    Program *p = parse("`echo \"echo test\"`");
+    Program t = generateSimpleBackTick2();
+    assert(p->isEqual(&t));
+}
+
+void testParserGenerateBackTickWithArguments() {
+    Program *p = parse("`echo \"echo\"` test");
+    Program t = generateBackTickWithArguments();
+    assert(p->isEqual(&t));
+}
+
+void testParserBackTickInSimplePipe() {
+    Program *p = parse("`echo echo a bb` | wc");
+    Program t = backTickInSimplePipe();
+    assert(p->isEqual(&t));
+}
+
+void testParserPipedBackTickInPipe() {
+    Program *p = parse("cat a.txt | `echo grep u | cat` | wc");
+    Program t = pipedBackTickInPipe();
+    assert(p->isEqual(&t));
+}
+void testParserBackTickWithVariables();
 
 
 // lolek=1234; echo `lolek=5678; echo $lolek` $lolek

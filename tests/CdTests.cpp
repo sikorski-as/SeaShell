@@ -18,3 +18,10 @@ Program generateSimpleCd() {
     p->varpips = varpips;
     return *p;
 }
+
+
+void testParserGenerateSimpleCd() {
+    Program *p = parse("cd test_folder");
+    Program t = generateSimpleCd();
+    assert(p->isEqual(&t));
+}
