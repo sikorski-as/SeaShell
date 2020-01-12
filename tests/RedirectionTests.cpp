@@ -21,10 +21,9 @@ Program generateOutputRedirection() {
     return *p;
 }
 
-// cd < in.txt
+// wc < in.txt
 Program generateInputRedirection() {
-    // cat < filenames.txt
-    Value* commandName = new Value("cd");
+    Value* commandName = new Value("wc");
     Value *in = new Value("in.txt");
     std::vector<Value> ins = {*in};
 
