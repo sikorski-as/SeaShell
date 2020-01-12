@@ -7,10 +7,12 @@
 class Context {
     std::map<std::string, std::string> localVars;
     bool running = true;
+    int lastReturnCode = 0;
 public:
     bool isRunning();
     void stop();
 
+    void setLastReturnCode(int);
     void exportVariable(std::string key, std::string value);
     void setVariable(std::string key, std::string value);
     std::string getVariable(std::string key);
