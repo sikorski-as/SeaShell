@@ -3,7 +3,7 @@
 
 #include "TestInclude.h"
 
-Program generateSimpleEcho();
+Program generateSimpleEcho(std::string echoArg = "msg");
 Program generateEchoSystemVariable();
 Program generateEchoSystemManyVariable();
 
