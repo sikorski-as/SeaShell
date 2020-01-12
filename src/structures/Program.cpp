@@ -3,5 +3,9 @@
 #include "Program.h"
 
 std::string Program::execute(Context * context) {
-    throw std::runtime_error("TODO: Program::execute");
+    std::string out;
+    for(auto varpip: this->varpips){
+        out += varpip->execute(context);
+    }
+    return out;
 }
