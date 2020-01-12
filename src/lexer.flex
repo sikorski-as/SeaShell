@@ -8,7 +8,7 @@ using namespace std;
 %}
 
 %option noyywrap
-
+LETTER                      [\._\-a-zA-Z0-9\\\/]
 %%
 `[^`\n]+`                   {   yylval.sval = strdup(yytext);
                                 #ifdef DEBUG
@@ -23,9 +23,9 @@ using namespace std;
 "|"                         { return OR; }
 "="                         { return ASSIGN; }
 ";"                         { return SC; }
-[\._\-a-zA-Z0-9$][\._\-a-zA-Z0-9]*  { yylval.sval = strdup(yytext); return STR; }
+[\._\-a-zA-Z0-9\\\/$~][\._\-a-zA-Z0-9\\\/]*  { yylval.sval = strdup(yytext); return STR; }
 [ \n\r\t\0]*                ;
-[!@#%^&*()+=]              { return ERROR; }
+[!@#%^&*()+=\'\[\]\(\)]              { return ERROR; }
 %%
 void set_input_string(const char* in) {
   yy_scan_string(in);

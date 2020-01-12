@@ -53,7 +53,7 @@ extern int yydebug;
   #include <iostream>
   #include <exception>
   #include <string>
-  #define DEBUG
+//  #define DEBUG
   #define YYERROR_VERBOSE 1
   using namespace std;
 

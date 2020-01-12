@@ -116,7 +116,7 @@ extern int yydebug;
   #include <iostream>
   #include <exception>
   #include <string>
-  #define DEBUG
+//  #define DEBUG
   #define YYERROR_VERBOSE 1
   using namespace std;
 
@@ -1637,13 +1637,13 @@ Program *parse(std::string command)
 {
     Program *root = nullptr;
     roots.push(root);
-    cout << command << endl;
+
     set_input_string(command.c_str());
     yyparse();
     end_lexical_scan();
 
     if (yynerrs) {
-        throw std::runtime_error("Bad request");
+        throw std::runtime_error("Bad request.");
     }
 
     root = roots.top();
