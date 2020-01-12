@@ -35,7 +35,7 @@ std::string Context::resolveVariables(std::string s) {
             bool search = true;
             bool hasName = true;
             int pos = -1;
-            if(indx + 1 < s.length && s.at(indx-1) == '?') {
+            if(indx + 1 < s.length() && s.at(indx+1) == '?') {
                 std::string resolvedVariable = this->getVariable("?");
                 s.replace(indx, indx + 1, resolvedVariable);
                 indx = s.find('$', indx + resolvedVariable.length());
