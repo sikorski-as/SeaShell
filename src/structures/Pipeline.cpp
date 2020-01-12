@@ -128,11 +128,12 @@ std::string Pipeline::execute(Context* context) {
     }
     last_read_desc.close();
 
+    int status = 0;
     for(int i = 0; i < pipelineLength; i++){
-        int status = 0;
         // std::cout<<"Waiting for: "<<pids[i]<<std::endl;
         waitpid(pids[i], &status, 0);
     }
+    context->setLastReturnCode(status);
 
     for(int i = 0; i < pipelineLength; i++) // this works when all processes are finished
         unlink((fifo_name_prefix + std::to_string(i)).c_str());

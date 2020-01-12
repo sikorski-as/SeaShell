@@ -1,6 +1,7 @@
 #include "Context.h"
 #include <cstdlib>
 #include <iostream>
+#include <string>
 #include <ctype.h>
 #include <unistd.h>
 
@@ -14,6 +15,9 @@ void Context::exportVariable(std::string key, std::string value) {
 }
 
 std::string Context::getVariable(std::string key) {
+    if(key == "?"){
+        return std::to_string(lastReturnCode);
+    }
     // check in local
     auto it = this->localVars.find(key);
     if (it != localVars.end()) {
@@ -94,4 +98,8 @@ bool Context::isRunning() {
 
 void Context::stop() {
     this->running = false;
+}
+
+void Context::setLastReturnCode(int code) {
+    lastReturnCode = code;
 }
