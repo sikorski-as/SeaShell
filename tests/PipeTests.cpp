@@ -94,6 +94,40 @@ Program generatePipeWithRedirections() {
     return *p;
 }
 
+Program generatePipeWithRedirections_NoPointers() {
+    // cat < filenames.txt
+    Value commandName = Value("cat");
+    Value in = Value("filenames.txt");
+    std::vector<Value> ins = {in};
+
+    Command c = Command();
+    c.inputFile = ins;
+    c.commandName = commandName;
+
+    // grep aaa > filtered.txt
+    Value commandName2 = Value("grep");
+    Value arg2 = Value("aaa");
+    std::vector<Value> arguments2 = {arg2};
+    Value out2 = Value("filtered.txt");
+    std::vector<Value> outs2 = {out2};
+
+    Command c2 = Command();
+    c2.arguments = arguments2;
+    c2.commandName = commandName2;
+    c2.outputFile = outs2;
+
+    std::vector<Command> commands = {c, c2};
+
+    Pipeline* pipe = new Pipeline(commands);
+
+    std::vector<VarPip *> varpips = {pipe};
+    Program p = Program();
+    p.varpips = varpips;
+    return p;
+}
+
+
+
 // cat < filenames.txt > outfilenames.txt | grep aaa
 Program generatePipeWithRedirections2() {
     // cat < filenames.txt > outfilenames.txt

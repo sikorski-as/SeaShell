@@ -134,3 +134,12 @@ Program pipedBackTickInPipe() {
     p.varpips = varpips;
     return p;
 }
+
+Program backTickWithVariables() {
+    
+}
+
+
+// lolek=1234; echo `lolek=5678; echo $lolek` $lolek
+// wypisuje: 5678 1234
+

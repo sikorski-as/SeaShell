@@ -24,6 +24,9 @@ int main() {
     Program simpleBackTickInSimplePipe = backTickInSimplePipe();
     Program pipedBackTick = pipedBackTickInPipe();
 
+    // Test the West
+    Program redirections_nopointers = generatePipeWithRedirections_NoPointers();
+
     // Errors
     Program assignmentFailed = variableAssignementFail();
     Program assignmentFailedEchoSuccess = variableAssignementFailedBeforeSuccessfulInstr();
