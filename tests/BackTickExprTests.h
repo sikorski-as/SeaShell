@@ -9,5 +9,6 @@ Program generateSimpleBackTick2();
 Program generateBackTickWithArguments();
 Program backTickInSimplePipe();
 Program pipedBackTickInPipe();
+Program backTickWithVariables();
 
 #endif

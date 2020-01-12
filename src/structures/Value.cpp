@@ -4,9 +4,9 @@
 
 std::string Value::execute(Context *context) {
     if (program == nullptr) {
-        return value;
+        return context->resolveVariables(value);
     } else {
-        return program->execute(context);
+        return context->resolveVariables(program->execute(context));
     }
 }
 

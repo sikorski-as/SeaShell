@@ -16,6 +16,14 @@ void testContextNormalReplacements(){
     assert(result.compare("TEST_A TEST_Bc done") == 0);
 }
 
+void testContextNormalReplacements2(){
+    Context c = Context();
+    c.setVariable("a", "b");
+
+    std::string result = c.resolveVariables("$a");
+    assert(result.compare("b") == 0);
+}
+
 void testEscapedDollarInText(){
     Context c = Context();
     std::string result = c.resolveVariables("\\$a");
