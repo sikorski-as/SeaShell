@@ -15,15 +15,17 @@ using namespace std;
                                     cout << yylval.sval << endl;
                                 #endif
                                 return BT_EXPRESSION; }
+\"[^\"\n]+\"                { yylval.sval = strdup(yytext);
+                              return DQ_EXPRESSION; }
 "export"                    { return EXPORT; }
 ">"                         { return GR; }
 "<"                         { return SM; }
 "|"                         { return OR; }
 "="                         { return ASSIGN; }
 ";"                         { return SC; }
-[\._a-zA-Z][\._a-zA-Z0-9]*  { yylval.sval = strdup(yytext); return STR; }
-<*>\n		                { BEGIN(INITIAL); return EOL; }
-<*><<EOF>>	                { return EOFF; }
+[\._\-a-zA-Z0-9$][\._\-a-zA-Z0-9]*  { yylval.sval = strdup(yytext); return STR; }
+[ \n\r\t\0]*                ;
+[!@#%^&*()+=]              { return ERROR; }
 %%
 void set_input_string(const char* in) {
   yy_scan_string(in);

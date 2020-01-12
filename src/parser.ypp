@@ -8,7 +8,10 @@
   #include "structures/VarPip.h"
 
   #include <iostream>
+  #include <exception>
+  #include <string>
   #define DEBUG
+  #define YYERROR_VERBOSE 1
   using namespace std;
 
   int yylex(void);
@@ -20,10 +23,10 @@
   #include "structures/Program.h"
   #include <stack>
 
-  extern "C" int yyparse();
-  extern "C" int errors;
+
+//  extern "C" int yyparse();
   void yyerror (char const *s);
-  int errors = 0;
+  int errors=0;
   std::stack<Program*> roots;
 %}
 // Tokens
@@ -40,8 +43,8 @@
 }
 
 %start program
-%token ASSIGN SC SM GR BT EOL EOFF OR EXPORT
-%token<sval> STR BT_EXPRESSION
+%token ASSIGN SC SM GR BT EOL EOFF OR EXPORT ERROR
+%token<sval> STR BT_EXPRESSION DQ_EXPRESSION
 
 %type<command> command
 %type<pipeline> pipeline
@@ -111,24 +114,35 @@ value               : STR {
                         Program * bt_ast = parse(bt_str.substr(1, bt_str.length() - 2));
                         $$ = new Value(bt_ast);
                       }
+                    | DQ_EXPRESSION {
+                        std::string bt_str = string($1);
+                        $$ = new Value(bt_str.substr(1, bt_str.length() - 2));
+                      }
                     ;
 
 %%
 
 void yyerror (char const *s)
 {
-    errors++;
-	//printf("Error: %s\n", s);
+#ifdef DEBUG
+    cout << "Error: " << s << endl;
+#endif
 }
+
 
 Program *parse(std::string command)
 {
     Program *root = nullptr;
     roots.push(root);
+    cout << command << endl;
     set_input_string(command.c_str());
     yyparse();
     end_lexical_scan();
-//    cout << endl << endl;
+
+    if (yynerrs) {
+        throw std::runtime_error("Bad request");
+    }
+
     root = roots.top();
     roots.pop();
     return root;
