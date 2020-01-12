@@ -12,5 +12,6 @@ void testEscapedDollarInText();
 void testEscapedDollarInVariable();
 void testSingleDollars();
 void testNonExistingVariables();
+void testContextNormalReplacements2();
 
 #endif

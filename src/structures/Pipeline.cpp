@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+#include <ctime>
 #include "Pipeline.h"
 
 Pipeline::Pipeline(std::vector<Command> cmds)
@@ -29,12 +30,15 @@ std::string Pipeline::execute(Context* context) {
         }
         else if(commandName == "pwd"){
             return context->getWorkingDirectory();
+        } else if (commandName == "exit") {
+            exit(0);    
         }
     }
     
     
     pid_t pids[pipelineLength];
-    std::string fifo_name_prefix = "/tmp/seashell_fifo.";
+    std::time_t currentTimestamp = std::time(nullptr);
+    std::string fifo_name_prefix = "/tmp/seashell_fifo."+std::to_string(currentTimestamp)+".";
     for(int i = 0; i < pipelineLength; i++){
         std::string fifo_name = fifo_name_prefix + std::to_string(i);
         mkfifo(fifo_name.c_str(), 0666);
@@ -60,26 +64,26 @@ std::string Pipeline::execute(Context* context) {
                 close(write_desc);
             }
 
-            std::cerr<<"Input cnt: "<<pipeCommand.inputFile.size()<<std::endl;
+            //std::cerr<<"Input cnt: "<<pipeCommand.inputFile.size()<<std::endl;
             if(pipeCommand.inputFile.size() > 0){
-                std::string stdinFilename = pipeCommand.inputFile.back().execute(); // last input file becomes stdin
+                std::string stdinFilename = pipeCommand.inputFile.back().execute(context); // last input file becomes stdin
                 std::string fullPath = context->getWorkingDirectory() + stdinFilename;
-                std::cerr<<"Input filename: "<<fullPath<<std::endl;
+                //std::cerr<<"Input filename: "<<fullPath<<std::endl;
                 int stdinFileDescriptor = open(fullPath.c_str(), O_RDONLY);
-                // std::cerr<<"File descriptor: "<<stdinFileDescriptor<<std::endl;
-                std::cerr<<"In file error: "<<strerror(errno)<<std::endl;
+                // //std::cerr<<"File descriptor: "<<stdinFileDescriptor<<std::endl;
+                //std::cerr<<"In file error: "<<strerror(errno)<<std::endl;
                 dup2(stdinFileDescriptor, 0);
                 close(stdinFileDescriptor);
             }
 
-            std::cerr<<"Output cnt: "<<pipeCommand.outputFile.size()<<std::endl;
+            //std::cerr<<"Output cnt: "<<pipeCommand.outputFile.size()<<std::endl;
             if(pipeCommand.outputFile.size() > 0){
-                std::string stdoutFilename = pipeCommand.outputFile.back().execute(); // last output file becomes stdout
+                std::string stdoutFilename = pipeCommand.outputFile.back().execute(context); // last output file becomes stdout
                 std::string fullPath = context->getWorkingDirectory() + stdoutFilename;
-                std::cerr<<"Output filename: "<<fullPath<<std::endl;
+                //std::cerr<<"Output filename: "<<fullPath<<std::endl;
                 int stdoutFileDescriptor = open(fullPath.c_str(), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-                // std::cerr<<"Out file descriptor: "<<stdoutFileDescriptor<<std::endl;
-                std::cerr<<"Out file error: "<<strerror(errno)<<std::endl;
+                // //std::cerr<<"Out file descriptor: "<<stdoutFileDescriptor<<std::endl;
+                //std::cerr<<"Out file error: "<<strerror(errno)<<std::endl;
 
                 dup2(stdoutFileDescriptor, 1);
                 close(stdoutFileDescriptor);
@@ -90,17 +94,17 @@ std::string Pipeline::execute(Context* context) {
 
             // BELOW FOR TESTING
             std::string cmdNameString = pipeCommand.commandName.execute(context);
-            std::cerr<<"CMD: "<<cmdNameString<<std::endl;
+            //std::cerr<<"CMD: "<<cmdNameString<<std::endl;
             
             std::vector<Value> cmdArgs = pipeCommand.arguments;
-            std::cerr<<"Arg array size: "<<cmdArgs.size()<<std::endl;
+            //std::cerr<<"Arg array size: "<<cmdArgs.size()<<std::endl;
 
             char* argv[cmdArgs.size()+2];
             argv[0] = const_cast<char*>(cmdNameString.c_str());
             for(int j = 1; j <= cmdArgs.size(); j++){
                 auto arg = cmdArgs[j-1];
-                std::string argString = arg.execute();
-                std::cerr<<"ARG: "<<argString<<std::endl;
+                std::string argString = arg.execute(context);
+                //std::cerr<<"ARG: "<<argString<<std::endl;
                 argv[j] = const_cast<char*>(argString.c_str());
             }
             argv[cmdArgs.size()+1] = NULL;

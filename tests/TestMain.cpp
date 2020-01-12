@@ -43,7 +43,7 @@ int main() {
     // std::cout<<"--- OutRedir result: "<<outRedirection.execute(&context)<<std::endl; */
     // std::cout<<"--- BothwaysRedir result: "<<redirection.execute(&context)<<std::endl;
     // std::cout<<"--- BothwaysRedirNoPointers result: "<<redirections_nopointers.execute(&context)<<std::endl;
-    std::cout<<"--- Redirection2 result: "<<redirection2.execute(&context)<<std::endl;
+//    std::cout<<"--- Redirection2 result: "<<redirection2.execute(&context)<<std::endl;
     // std::cout<<"--- Redirection2 result: "<<redirection2_pointers.execute(&context)<<std::endl;
 
     // Automatic Context tests
@@ -53,6 +53,7 @@ int main() {
     testEscapedDollarInVariable();
     testSingleDollars();
     testNonExistingVariables();
+    testContextNormalReplacements2();
 
     return 0;
 }

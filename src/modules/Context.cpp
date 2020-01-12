@@ -49,6 +49,7 @@ std::string Context::resolveVariables(std::string s) {
             if(hasName && indx + 1 < s.length()) { // do a replacement if there is name after $
                 std::string variableName = s.substr(indx+1, pos-indx-1);
                 std::string resolvedVariable = this->getVariable(variableName);
+//                std::cerr << "Resolving " << variableName << " : " << resolvedVariable << "\n";
                 s.replace(indx, pos-indx, resolvedVariable);
                 indx = s.find('$', indx + resolvedVariable.length());
             } else
