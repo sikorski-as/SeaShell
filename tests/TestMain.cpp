@@ -16,7 +16,13 @@ int main() {
     Program outRedirection =  generateOutputRedirection();
     Program inRedirection = generateInputRedirection();
     Program redirection = generateBothWayRedirection();
+    Program redirection2 = generatePipeWithRedirections2();
+    Program redirection3 = generatePipeWithRedirections3();
     Program simpleBackTickPwd = generateSimpleBackTick();
+    Program simpleBackTick = generateSimpleBackTick2();
+    Program simpleBackTickWithArguments = generateBackTickWithArguments();
+    Program simpleBackTickInSimplePipe = backTickInSimplePipe();
+    Program pipedBackTick = pipedBackTickInPipe();
 
     // Errors
     Program assignmentFailed = variableAssignementFail();

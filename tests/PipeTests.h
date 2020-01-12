@@ -6,5 +6,7 @@
 Program generateSimplePipe();
 Program generateManyPipes();
 Program generatePipeWithRedirections();
+Program generatePipeWithRedirections2();
+Program generatePipeWithRedirections3();
 
 #endif

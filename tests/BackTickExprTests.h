@@ -5,5 +5,9 @@
 #include "EchoTests.h"
 
 Program generateSimpleBackTick();
+Program generateSimpleBackTick2();
+Program generateBackTickWithArguments();
+Program backTickInSimplePipe();
+Program pipedBackTickInPipe();
 
 #endif
