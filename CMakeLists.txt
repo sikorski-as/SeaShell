@@ -51,4 +51,6 @@ add_executable(parse
         src/structures/Command.h src/structures/Command.cpp
         src/structures/Value.h src/structures/Value.cpp
         src/modules/Context.cpp src/modules/Context.h
-        src/modules/Builtins.cpp src/modules/Builtins.h)
+        src/modules/Builtins.cpp src/modules/Builtins.h
+        src/parser.cpp src/parser.hpp src/lexer.cpp
+        )
