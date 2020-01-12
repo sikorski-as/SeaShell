@@ -13,7 +13,7 @@ void Shell::start() {
         std::getline(std::cin, input);
         Program * program = parse(input);
         if(program){
-            std::cout << program->execute(&context) << std::endl;
+            std::cout << program->execute(&context);
         }
     }
     std::cout << "Exiting...\n";
