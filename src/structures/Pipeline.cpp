@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+#include <ctime>
 #include "Pipeline.h"
 
 Pipeline::Pipeline(std::vector<Command> cmds)
@@ -36,7 +37,8 @@ std::string Pipeline::execute(Context* context) {
     
     
     pid_t pids[pipelineLength];
-    std::string fifo_name_prefix = "/tmp/seashell_fifo.";
+    std::time_t currentTimestamp = std::time(nullptr);
+    std::string fifo_name_prefix = "/tmp/seashell_fifo."+std::to_string(currentTimestamp)+".";
     for(int i = 0; i < pipelineLength; i++){
         std::string fifo_name = fifo_name_prefix + std::to_string(i);
         mkfifo(fifo_name.c_str(), 0666);
