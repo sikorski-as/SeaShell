@@ -1,7 +1,14 @@
 #include "Context.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include <ctype.h>
+#include <unistd.h>
+
+Context::Context() {
+    char* dirName = get_current_dir_name();
+    this->setVariable("PWD", dirName);
+    free(dirName);
+}
 
 void Context::setVariable(std::string key, std::string value) {
     this->localVars[key] = value;
