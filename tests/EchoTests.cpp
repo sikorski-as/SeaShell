@@ -1,9 +1,9 @@
 #include "EchoTests.h"
 
 // echo "msg"
-Program generateSimpleEcho() {
+Program generateSimpleEcho(std::string echoArg) {
     Value* commandName = new Value("echo");
-    Value* name = new Value("msg");
+    Value* name = new Value(echoArg);
     std::vector<Value> arguments = {*name};
 
     Command* c = new Command();

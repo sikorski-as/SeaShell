@@ -61,6 +61,7 @@ add_executable(uxp
 
 
          tests/ErrorTests.h
+         tests/BackTickExprTests.h
          tests/PwdTests.h
          tests/CdTests.h
          tests/EchoTests.h
@@ -71,6 +72,7 @@ add_executable(uxp
          tests/ContextTests.h
          
          tests/ErrorTests.cpp
+         tests/BackTickExprTests.cpp
          tests/PwdTests.cpp
          tests/CdTests.cpp
          tests/EchoTests.cpp

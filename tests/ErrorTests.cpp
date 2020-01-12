@@ -1,7 +1,7 @@
 #include "ErrorTests.h"
 
 // 123local=host;
-Program variableAssignemntFail() {
+Program variableAssignementFail() {
     Value name = Value("123local");
     Value newValue = Value("host");
 
@@ -14,7 +14,7 @@ Program variableAssignemntFail() {
 }
 
 //123local=host;echo "test";
-Program variableAssignemntFailedBeforeSuccessfulInstr() {
+Program variableAssignementFailedBeforeSuccessfulInstr() {
     //123local=host;
     Value varName = Value("123local");
     Value newValue = Value("host");
@@ -37,7 +37,7 @@ Program variableAssignemntFailedBeforeSuccessfulInstr() {
 }
 
 //123local=host;echo "$123local";
-Program failedVariableAssignmentEchoed() {
+Program failedVariableAssignementEchoed() {
     //123local=host;
     Value varName = Value("123local");
     Value newValue = Value("host");

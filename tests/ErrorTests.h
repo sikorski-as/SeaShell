@@ -3,9 +3,9 @@
 
 #include "TestInclude.h"
 
-Program variableAssignemntFail();
-Program variableAssignemntFailedBeforeSuccessfulInstr();
-Program failedVariableAssignmentEchoed();
+Program variableAssignementFail();
+Program variableAssignementFailedBeforeSuccessfulInstr();
+Program failedVariableAssignementEchoed();
 Program cdToNonExistingFolder();
 
 

@@ -17,12 +17,13 @@ int main() {
     Program outRedirection =  generateOutputRedirection();
     Program inRedirection = generateInputRedirection();
     Program redirection = generateBothWayRedirection();
+    Program simpleBackTickPwd = generateSimpleBackTick();
 
 
     // Errors
-    Program assignmentFailed = variableAssignemntFail();
-    Program assignmentFailedEchoSuccess = variableAssignemntFailedBeforeSuccessfulInstr();
-    Program assignmentFailedEchoFailed = failedVariableAssignmentEchoed();
+    Program assignmentFailed = variableAssignementFail();
+    Program assignmentFailedEchoSuccess = variableAssignementFailedBeforeSuccessfulInstr();
+    Program assignmentFailedEchoFailed = failedVariableAssignementEchoed();
     Program cdFailed = cdToNonExistingFolder();
 
 //     auto ex = Executor();
