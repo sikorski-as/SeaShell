@@ -80,3 +80,11 @@ std::string Context::getWorkingDirectory() {
     free(workingDirectoryBuffer);
     return workingDirectory;
 }
+
+bool Context::isRunning() {
+    return this->running;
+}
+
+void Context::stop() {
+    this-running = false;
+}
