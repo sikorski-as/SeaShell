@@ -29,6 +29,8 @@ std::string Pipeline::execute(Context* context) {
         }
         else if(commandName == "pwd"){
             return context->getWorkingDirectory();
+        } else if (commandName == "exit") {
+            exit(0);    
         }
     }
     
