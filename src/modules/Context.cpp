@@ -74,6 +74,9 @@ void Context::setWorkingDirectory(std::string newWorkingDirectory) {
 std::string Context::getWorkingDirectory() {
     char* workingDirectoryBuffer = get_current_dir_name();
     std::string workingDirectory = workingDirectoryBuffer;
+    if(workingDirectory.back() != '/'){
+        workingDirectory += '/';
+    }
     free(workingDirectoryBuffer);
     return workingDirectory;
 }
