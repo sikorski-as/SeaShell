@@ -23,7 +23,7 @@ Program generateOutputRedirection() {
 
 // wc < in.txt
 Program generateInputRedirection() {
-    Value* commandName = new Value("wc");
+    Value* commandName = new Value("cat");
     Value *in = new Value("in.txt");
     std::vector<Value> ins = {*in};
 
@@ -43,11 +43,10 @@ Program generateInputRedirection() {
 
 // grep < in.txt >out.txt aaa
 Program generateBothWayRedirection() {
-    // cat < filenames.txt
     Value* commandName = new Value("grep");
-    Value *in = new Value("in.txt");
+    Value *in = new Value("in2.txt");
     std::vector<Value> ins = {*in};
-    Value *out = new Value("out.txt");
+    Value *out = new Value("out2.txt");
     std::vector<Value> outs = {*out};
     Value *arg = new Value("aaa");
     std::vector<Value> arguments = {*arg};
