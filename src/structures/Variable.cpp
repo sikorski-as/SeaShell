@@ -6,7 +6,10 @@ std::string Variable::execute(Context *c) {
     std::string name = this->name.execute(c);
     std::string newValue = c->resolveVariables(this->newValue.execute(c));
 
-    c->setVariable(name, newValue);
+    if(this->shouldExport)
+        c->exportVariable(name, newValue);
+    else
+        c->setVariable(name, newValue);
 
     return "";
 }

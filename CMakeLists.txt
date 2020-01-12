@@ -60,6 +60,7 @@ add_executable(uxp
         # src/modules/Cleaner.cpp src/modules/Cleaner.h
 
 
+         tests/ErrorTests.h
          tests/PwdTests.h
          tests/CdTests.h
          tests/EchoTests.h
@@ -68,7 +69,8 @@ add_executable(uxp
          tests/PipeTests.h
          tests/RedirectionTests.h
          tests/ContextTests.h
-
+         
+         tests/ErrorTests.cpp
          tests/PwdTests.cpp
          tests/CdTests.cpp
          tests/EchoTests.cpp
@@ -77,6 +79,7 @@ add_executable(uxp
          tests/PipeTests.cpp
          tests/RedirectionTests.cpp
          tests/ContextTests.cpp
+
          tests/TestMain.cpp
  )
 
