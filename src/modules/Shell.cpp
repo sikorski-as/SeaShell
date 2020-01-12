@@ -4,12 +4,13 @@
 #include <string>
 
 void Shell::start() {
-    while(true){
+    Context context;
+    while(context.isRunning()){
         std::string input;
         std::getline(std::cin, input);
-        // process input and start program
 
-        std::runtime_error("TODO: Shell::start");
+        // parse input and start execution
+        throw std::runtime_error("TODO: Shell::start");
     }
     std::cout << "Exiting...\n";
 }

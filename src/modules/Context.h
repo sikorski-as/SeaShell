@@ -6,7 +6,11 @@
 
 class Context {
     std::map<std::string, std::string> localVars;
+    bool running = true;
 public:
+    bool isRunning();
+    void stop();
+
     void exportVariable(std::string key, std::string value);
     void setVariable(std::string key, std::string value);
     std::string getVariable(std::string key);
