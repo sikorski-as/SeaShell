@@ -1,4 +1,3 @@
-
 #include <sys/stat.h>
 #include <sys/wait.h> // waitpid
 #include <fcntl.h>
@@ -12,12 +11,13 @@
 #include <ctime>
 #include "Pipeline.h"
 
+extern std::vector<pid_t> childrenPids;
+
 Pipeline::Pipeline(std::vector<Command> cmds)
 : commands(cmds)
 {}
 
 std::string Pipeline::execute(Context* context) {
-    // std::vector<Node*> pipes = pipeExpr->getPipes();
     int pipelineLength = this->commands.size();
     if(pipelineLength == 1){
         std::string commandName = this->commands[0].commandName.execute(context);
@@ -115,6 +115,7 @@ std::string Pipeline::execute(Context* context) {
             throw std::runtime_error("Unable to start subprocess for pipeline element: "+std::to_string(i));
         } else { // parent process
             pids[i] = currPid;
+            childrenPids.push_back(currPid); // to handle signals
             // std::cout<<"Saving pid: "<<pids[i]<<std::endl;
         }
     }

@@ -35,25 +35,31 @@ std::string Context::resolveVariables(std::string s) {
             bool search = true;
             bool hasName = true;
             int pos = -1;
-            for(int i = indx + 1; i < s.length() && search; i++) {
-                char c = s.at(i);
-                if (!isalnum(c) &&  c!='_') {
-                    if(i == indx+1)
-                        hasName = false;
-                    search = false;
-                    pos = i;
-                }
-            }
-            if(pos == -1)
-                pos = s.length();
-            if(hasName && indx + 1 < s.length()) { // do a replacement if there is name after $
-                std::string variableName = s.substr(indx+1, pos-indx-1);
-                std::string resolvedVariable = this->getVariable(variableName);
-//                std::cerr << "Resolving " << variableName << " : " << resolvedVariable << "\n";
-                s.replace(indx, pos-indx, resolvedVariable);
+            if(indx + 1 < s.length && s.at(indx-1) == '?') {
+                std::string resolvedVariable = this->getVariable("?");
+                s.replace(indx, indx + 1, resolvedVariable);
                 indx = s.find('$', indx + resolvedVariable.length());
-            } else
-                indx = s.find('$', indx + 1);
+            } else {
+                for(int i = indx + 1; i < s.length() && search; i++) {
+                    char c = s.at(i);
+                    if (!isalnum(c) &&  c!='_') {
+                        if(i == indx+1)
+                            hasName = false;
+                        search = false;
+                        pos = i;
+                    }
+                }
+                if(pos == -1)
+                    pos = s.length();
+                if(hasName && indx + 1 < s.length()) { // do a replacement if there is name after $
+                    std::string variableName = s.substr(indx+1, pos-indx-1);
+                    std::string resolvedVariable = this->getVariable(variableName);
+    //                std::cerr << "Resolving " << variableName << " : " << resolvedVariable << "\n";
+                    s.replace(indx, pos-indx, resolvedVariable);
+                    indx = s.find('$', indx + resolvedVariable.length());
+                } else
+                    indx = s.find('$', indx + 1);
+            }
         } else {
             if(s.at(indx-1) == '\\') { // delete replacement
                 s.replace(indx-1, 1, "");

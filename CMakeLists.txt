@@ -15,7 +15,8 @@ add_executable(uxp
         src/structures/Command.cpp src/structures/Command.h
         src/structures/Value.cpp src/structures/Value.h
         src/modules/Context.cpp src/modules/Context.h
-        src/modules/Builtins.cpp src/modules/Builtins.h)
+        src/modules/Builtins.cpp src/modules/Builtins.h
+        src/modules/Signals.cpp src/modules/Signals.h)
 
 add_executable(tests
         tests/TestMain.cpp
@@ -38,7 +39,8 @@ add_executable(tests
         tests/ExportTests.h tests/ExportTests.cpp
         tests/PipeTests.h tests/PipeTests.cpp
         tests/RedirectionTests.h tests/RedirectionTests.cpp
-        tests/ContextTests.h tests/ContextTests.cpp)
+        tests/ContextTests.h tests/ContextTests.cpp
+        src/modules/Signals.cpp src/modules/Signals.h)
 
 add_executable(parse
         src/main.cpp
@@ -53,4 +55,4 @@ add_executable(parse
         src/modules/Context.cpp src/modules/Context.h
         src/modules/Builtins.cpp src/modules/Builtins.h
         src/parser.cpp src/parser.hpp src/lexer.cpp
-        )
+        src/modules/Signals.cpp src/modules/Signals.h)
