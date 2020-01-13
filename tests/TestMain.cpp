@@ -13,7 +13,7 @@ int main() {
     Program pipe1 = generateSimplePipe();
     Program pipe2 = generateManyPipes();
     Program pipe3 = generatePipeWithRedirections();
-    Program outRedirection =  generateOutputRedirection();
+    Program outRedirection = generateOutputRedirection();
     Program inRedirection = generateInputRedirection();
     Program redirection = generateBothWayRedirection();
     Program redirection2 = generatePipeWithRedirections2();
@@ -54,6 +54,29 @@ int main() {
     testSingleDollars();
     testNonExistingVariables();
     testContextNormalReplacements2();
+
+    // Automatic Parser Tests
+    testParserGenerateSimpleCd();
+    testParserGenerateSimpleEcho();
+    testParserGenerateEchoSystemVariable();
+    testParserGenerateEchoSystemManyVariable();
+    testParserGenerateSimpleExport();
+    testParserGenerateSimplePipe();
+    testParserGenerateManyPipes();
+    testParserGeneratePipeWithRedirections();
+    testParserGeneratePipeWithRedirections2();
+    testParserGeneratePipeWithRedirections3();
+    testParserGenerateSimplePwd();
+    testParserGenerateOutputRedirection();
+    testParserGenerateInputRedirection();
+    testParserGenerateBothWayRedirection();
+    testParserGenerateSimpleAssignment();
+
+//     testParserGenerateSimpleBackTick(); // seg fault na etapie parsowania?
+//  testParserGenerateSimpleBackTick2();
+//  testParserGenerateBackTickWithArguments();
+//  testParserBackTickInSimplePipe();
+//  testParserPipedBackTickInPipe();
 
     return 0;
 }

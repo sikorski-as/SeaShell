@@ -212,13 +212,13 @@ Program generatePipeWithRedirections3() {
     Value commandName2 = Value("grep");
     Value arg2 = Value("aaa");
     std::vector<Value> arguments2 = {arg2};
-    Value out2 = Value("in2.txt");
-    std::vector<Value> outs2 = {out2};
+    Value in2 = Value("in2.txt");
+    std::vector<Value> ins2 = {in2};
 
     Command c2 = Command();
     c2.arguments = arguments2;
     c2.commandName = commandName2;
-    c2.outputFile = outs2;
+    c2.inputFile = ins2;
 
     std::vector<Command> commands = {c, c2};
 

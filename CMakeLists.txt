@@ -30,6 +30,8 @@ add_executable(tests
         src/modules/Context.cpp src/modules/Context.h
         src/modules/Builtins.cpp src/modules/Builtins.h
 
+        src/parser.cpp src/parser.hpp src/lexer.cpp
+
         tests/ErrorTests.h tests/ErrorTests.cpp
         tests/BackTickExprTests.h tests/BackTickExprTests.cpp
         tests/PwdTests.h tests/PwdTests.cpp
