@@ -468,7 +468,7 @@ char *yytext;
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
-//#define DEBUG
+#define DEBUG
 using namespace std;
 #line 474 "lexer.cpp"
 #line 475 "lexer.cpp"
@@ -751,75 +751,72 @@ case 1:
 YY_RULE_SETUP
 #line 13 "lexer.flex"
 {   yylval.sval = strdup(yytext);
-                                #ifdef DEBUG
-                                    cout << yylval.sval << endl;
-                                #endif
                                 return BT_EXPRESSION; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 18 "lexer.flex"
+#line 15 "lexer.flex"
 { yylval.sval = strdup(yytext);
                               return DQ_EXPRESSION; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "lexer.flex"
+#line 17 "lexer.flex"
 { yylval.sval = strdup(yytext);
                               return SQ_EXPRESSION; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "lexer.flex"
+#line 19 "lexer.flex"
 { return EXPORT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "lexer.flex"
+#line 20 "lexer.flex"
 { return GR; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "lexer.flex"
+#line 21 "lexer.flex"
 { return SM; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "lexer.flex"
+#line 22 "lexer.flex"
 { return OR; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "lexer.flex"
+#line 23 "lexer.flex"
 { return ASSIGN; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "lexer.flex"
+#line 24 "lexer.flex"
 { return SC; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "lexer.flex"
+#line 25 "lexer.flex"
 { yylval.sval = strdup(yytext); return STR; }
 	YY_BREAK
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 29 "lexer.flex"
+#line 26 "lexer.flex"
 ;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "lexer.flex"
+#line 27 "lexer.flex"
 { return ERROR; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "lexer.flex"
+#line 28 "lexer.flex"
 ECHO;
 	YY_BREAK
-#line 823 "lexer.cpp"
+#line 820 "lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1824,7 +1821,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "lexer.flex"
+#line 28 "lexer.flex"
 
 void set_input_string(const char* in) {
   yy_scan_string(in);
@@ -1833,4 +1830,3 @@ void set_input_string(const char* in) {
 void end_lexical_scan(void) {
   yy_delete_buffer(YY_CURRENT_BUFFER);
 }
-

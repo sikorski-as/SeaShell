@@ -53,16 +53,19 @@ extern int yydebug;
   #include <iostream>
   #include <exception>
   #include <string>
-//  #define DEBUG
+  #define DEBUG
   #define YYERROR_VERBOSE 1
   using namespace std;
-
+extern int yylex_destroy(void);
   int yylex(void);
   void set_input_string(const char* in);
   void end_lexical_scan(void);
   Program *parse(std::string);
+  bool isEmpty(std::string);
+  void parse_to_root(std::string);
+  void find_bt_expressions(std::string);
 
-#line 66 "parser.hpp" /* yacc.c:1909  */
+#line 69 "parser.hpp" /* yacc.c:1909  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -79,10 +82,11 @@ extern int yydebug;
     OR = 265,
     EXPORT = 266,
     ERROR = 267,
-    STR = 268,
-    BT_EXPRESSION = 269,
-    DQ_EXPRESSION = 270,
-    SQ_EXPRESSION = 271
+    IGNORE = 268,
+    STR = 269,
+    BT_EXPRESSION = 270,
+    DQ_EXPRESSION = 271,
+    SQ_EXPRESSION = 272
   };
 #endif
 
@@ -91,7 +95,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 34 "parser.ypp" /* yacc.c:1909  */
+#line 36 "parser.ypp" /* yacc.c:1909  */
 
     char* sval;
     Command *command;
@@ -102,7 +106,7 @@ union YYSTYPE
     Variable *variable;
     VarPip *varpip;
 
-#line 106 "parser.hpp" /* yacc.c:1909  */
+#line 110 "parser.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

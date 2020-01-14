@@ -3,7 +3,7 @@
 #include "parser.hpp"
 
 // #define YY_DECL extern "C" int yylex()
-//#define DEBUG
+#define DEBUG
 using namespace std;
 %}
 
@@ -11,9 +11,6 @@ using namespace std;
 LETTER                      [\._\-a-zA-Z0-9\\\/]
 %%
 `[^`\n]+`                   {   yylval.sval = strdup(yytext);
-                                #ifdef DEBUG
-                                    cout << yylval.sval << endl;
-                                #endif
                                 return BT_EXPRESSION; }
 \"[^\"\n]+\"                { yylval.sval = strdup(yytext);
                               return DQ_EXPRESSION; }
