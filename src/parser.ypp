@@ -44,7 +44,7 @@
 
 %start program
 %token ASSIGN SC SM GR BT EOL EOFF OR EXPORT ERROR
-%token<sval> STR BT_EXPRESSION DQ_EXPRESSION
+%token<sval> STR BT_EXPRESSION DQ_EXPRESSION SQ_EXPRESSION
 
 %type<command> command
 %type<pipeline> pipeline
@@ -91,6 +91,11 @@ pipeline            : pipeline OR command {
 
 command             : command value {
                         $$ = $1;
+                        cout << "New argument" << endl;/*
+                        if ($2->program == nullptr)
+                            std::cout << "We have value " << $2->value << endl;
+                        else
+                            std::cout << "We have a program" << endl;*/
                         $$->arguments.push_back(*$2);
                       }
                     | command GR value {
@@ -102,7 +107,11 @@ command             : command value {
                         $$->inputFile.push_back(*$3);
                       }
                     | value {
-                        $$ = new Command();
+                        $$ = new Command();/*
+                        if ($1->program == nullptr)
+                            std::cout << "We have value " << $1->value << endl;
+                        else
+                            std::cout << "We have a program" << endl;*/
                         $$->commandName = *$1;
                       }
                     ;
@@ -111,10 +120,15 @@ value               : STR {
                       }
                     | BT_EXPRESSION {
                         std::string bt_str = string($1);
-                        Program * bt_ast = parse(bt_str.substr(1, bt_str.length() - 2));
+                        bt_str = bt_str.substr(1, bt_str.length() - 2);
+                        Program * bt_ast = parse(bt_str);
                         $$ = new Value(bt_ast);
                       }
                     | DQ_EXPRESSION {
+                        std::string bt_str = string($1);
+                        $$ = new Value(bt_str.substr(1, bt_str.length() - 2));
+                      }
+                    | SQ_EXPRESSION {
                         std::string bt_str = string($1);
                         $$ = new Value(bt_str.substr(1, bt_str.length() - 2));
                       }

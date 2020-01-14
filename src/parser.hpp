@@ -81,7 +81,8 @@ extern int yydebug;
     ERROR = 267,
     STR = 268,
     BT_EXPRESSION = 269,
-    DQ_EXPRESSION = 270
+    DQ_EXPRESSION = 270,
+    SQ_EXPRESSION = 271
   };
 #endif
 
@@ -101,7 +102,7 @@ union YYSTYPE
     Variable *variable;
     VarPip *varpip;
 
-#line 105 "parser.hpp" /* yacc.c:1909  */
+#line 106 "parser.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
