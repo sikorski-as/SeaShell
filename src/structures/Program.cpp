@@ -13,7 +13,7 @@ std::string Program::execute(Context *context) {
             first = false;
 
         } else {
-            out += '\n' + varpip->execute(context);
+            out += '\n' + output;
         }
     }
     return out;
