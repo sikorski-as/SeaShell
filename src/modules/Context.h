@@ -3,11 +3,14 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 class Context {
     std::map<std::string, std::string> localVars;
     bool running = true;
     int lastReturnCode = 0;
+    void split(const std::string& str, std::vector<std::string> &cont,
+               const std::string& delimss);
 public:
     bool isRunning();
     void stop();

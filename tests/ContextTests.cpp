@@ -52,6 +52,34 @@ void testNonExistingVariables(){
     assert(result.compare("") == 0);
 }
 
-// do rozwazenia:
-// a = b\$; echo $a
-// echo '$a'
+void testTextInSingleQuotes() {
+    Context c = Context();
+    std::string result = c.resolveVariables("'test'");
+    assert(result.compare("test") == 0);
+}// 'test' -> test
+
+void testSingleQuotesInTheMiddle() {
+    Context c = Context();
+    std::string result = c.resolveVariables("te'st'");
+    assert(result.compare("test") == 0);
+}// te'st' -> test
+
+void testVariableInSingleQuotes() {
+    Context c = Context();
+    c.setVariable("a", "b");
+    std::string result = c.resolveVariables("'$a'");
+    assert(result.compare("$a") == 0);
+} // '$a' - > $a
+
+void testReturnCode() {
+    Context c = Context();
+    std::string result = c.resolveVariables("$?");
+    assert(result.compare("0") == 0);
+} // $? -> 0
+
+void testVariableAndTextInSingleQuotes() {
+    Context c = Context();
+    c.setVariable("a", "b");
+    std::string result = c.resolveVariables("'$a = ' $a");
+    assert(result.compare("$a =  b") == 0);
+} // '$a ss' $a - > $a ss b

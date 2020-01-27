@@ -14,4 +14,11 @@ void testSingleDollars();
 void testNonExistingVariables();
 void testContextNormalReplacements2();
 
+// test single quotes
+void testTextInSingleQuotes(); // 'test' -> test
+void testSingleQuotesInTheMiddle(); // te'st' -> test
+void testVariableInSingleQuotes(); // '$a' - > $a
+void testReturnCode(); // $? -> 0
+void testVariableAndTextInSingleQuotes(); // '$a ss' $a - > $a ss b
+
 #endif

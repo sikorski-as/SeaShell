@@ -54,6 +54,11 @@ int main() {
     testSingleDollars();
     testNonExistingVariables();
     testContextNormalReplacements2();
+    testTextInSingleQuotes(); // 'test' -> test
+    testSingleQuotesInTheMiddle(); // te'st' -> test
+    testVariableInSingleQuotes(); // '$a' - > $a
+    testReturnCode(); // $? -> 0
+    testVariableAndTextInSingleQuotes(); // '$a ss' $a - > $a ss b
 
     // Automatic Parser Tests
     testParserGenerateSimpleCd();
