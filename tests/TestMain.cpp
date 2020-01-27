@@ -36,15 +36,8 @@ int main() {
 
     // Example execution here (write your tests here)
     Context context;
-    // std::cout<<"--- Pipe 1 result: "<<pipe1.execute(&context)<<std::endl;
-    // std::cout<<"--- Pipe 2 result: "<<pipe2.execute(&context)<<std::endl;
-    // std::cout<<"--- Pipe 3 result: "<<pipe3.execute(&context)<<std::endl;
-    // std::cout<<"--- InRedir result: "<<inRedirection.execute(&context)<<std::endl;
-    // std::cout<<"--- OutRedir result: "<<outRedirection.execute(&context)<<std::endl; */
-    // std::cout<<"--- BothwaysRedir result: "<<redirection.execute(&context)<<std::endl;
-    // std::cout<<"--- BothwaysRedirNoPointers result: "<<redirections_nopointers.execute(&context)<<std::endl;
-//    std::cout<<"--- Redirection2 result: "<<redirection2.execute(&context)<<std::endl;
-    // std::cout<<"--- Redirection2 result: "<<redirection2_pointers.execute(&context)<<std::endl;
+
+//    std::cout << "-- Simple echo result: " << echo.execute(&context, false) << std::endl;
 
     // Automatic Context tests
     testContextNoReplecement();
@@ -60,7 +53,7 @@ int main() {
     testReturnCode(); // $? -> 0
     testVariableAndTextInSingleQuotes(); // '$a ss' $a - > $a ss b
 
-    // Automatic Parser Tests
+//    // Automatic Parser Tests
     testParserGenerateSimpleCd();
     testParserGenerateSimpleEcho();
     testParserGenerateEchoSystemVariable();
@@ -76,12 +69,9 @@ int main() {
     testParserGenerateInputRedirection();
     testParserGenerateBothWayRedirection();
     testParserGenerateSimpleAssignment();
-
-//     testParserGenerateSimpleBackTick(); // seg fault na etapie parsowania?
-//  testParserGenerateSimpleBackTick2();
-//  testParserGenerateBackTickWithArguments();
-//  testParserBackTickInSimplePipe();
-//  testParserPipedBackTickInPipe();
+    testParserGenerateSimpleBackTick(); // seg fault na etapie parsowania?
+    testParserGenerateSimpleBackTick2();
+    testParserGenerateBackTickWithArguments();
 
     return 0;
 }
