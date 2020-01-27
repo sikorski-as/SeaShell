@@ -10,6 +10,7 @@
 #include <iostream>
 #include <ctime>
 #include "Pipeline.h"
+#include <stdio.h>
 
 extern std::vector<pid_t> childrenPids;
 
@@ -18,6 +19,11 @@ Pipeline::Pipeline(std::vector<Command> cmds)
 {}
 
 std::string Pipeline::execute(Context* context) {
+    char** argv = nullptr;
+    std::string argString = "";
+    int j = 0;
+    char * tempAlloc = nullptr;
+
     int pipelineLength = this->commands.size();
     if(pipelineLength == 1){
         std::string commandName = this->commands[0].commandName.execute(context);
@@ -96,12 +102,14 @@ std::string Pipeline::execute(Context* context) {
             std::cerr<<"CMD: "<<pipeCommand.commandName.execute(context)<<std::endl;
             std::cerr<<"Arg array size: "<<pipeCommand.arguments.size()<<std::endl;
 
-            char* argv[pipeCommand.arguments.size()+2];
+            argv = new char*[pipeCommand.arguments.size()+2];
             argv[0] = const_cast<char*>(pipeCommand.commandName.execute(context).c_str());
-            for(int j = 0; j < pipeCommand.arguments.size(); j++){
-                std::string argString = pipeCommand.arguments[j].execute(context);
+            for(j = 0; j < pipeCommand.arguments.size(); j++){
+                argString = pipeCommand.arguments[j].execute(context);
                 std::cerr<<"ARG: "<<argString<<std::endl;
-                argv[j+1] = const_cast<char*>(argString.c_str());
+                tempAlloc = new char[pipeCommand.arguments[j].execute(context).length()];
+                sprintf(tempAlloc, pipeCommand.arguments[j].execute(context).c_str());
+                argv[j+1] = tempAlloc;
             }
             argv[pipeCommand.arguments.size()+1] = NULL;
             int result = execvp(argv[0], argv);
