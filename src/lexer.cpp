@@ -1,6 +1,6 @@
-#line 1 "lexer.cpp"
+#line 2 "lexer.cpp"
 
-#line 3 "lexer.cpp"
+#line 4 "lexer.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -470,8 +470,8 @@ char *yytext;
 // #define YY_DECL extern "C" int yylex()
 #define DEBUG
 using namespace std;
-#line 473 "lexer.cpp"
 #line 474 "lexer.cpp"
+#line 475 "lexer.cpp"
 
 #define INITIAL 0
 
@@ -690,7 +690,7 @@ YY_DECL
 	{
 #line 12 "lexer.flex"
 
-#line 693 "lexer.cpp"
+#line 694 "lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -816,7 +816,7 @@ YY_RULE_SETUP
 #line 28 "lexer.flex"
 ECHO;
 	YY_BREAK
-#line 819 "lexer.cpp"
+#line 820 "lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
