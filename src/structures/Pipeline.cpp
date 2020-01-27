@@ -8,9 +8,11 @@
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <ctime>
 #include "Pipeline.h"
 #include <stdio.h>
+#include <sstream>
 
 extern std::vector<pid_t> childrenPids;
 
@@ -55,7 +57,7 @@ std::string Pipeline::execute(Context* context, bool backtick) {
         // std::cout<<"Forking "<<i<<std::endl;
         pid_t currPid = fork();
         if(currPid == 0) { // child process
-            
+
             // stdin and stdout shenanigans with FIFO
             if(i == 0){
                 int write_desc = open((fifo_name_prefix + std::to_string(i)).c_str(), O_WRONLY); // open first write FIFO
@@ -127,12 +129,13 @@ std::string Pipeline::execute(Context* context, bool backtick) {
     }
 
     // Below fragment reachable only from parent
-    std::string output = "";
+    std::stringstream output;
     std::ifstream last_read_desc{(fifo_name_prefix + std::to_string(pipelineLength-1)).c_str()};
-    for (std::string line; std::getline(last_read_desc, line);) {
-        output += line;
-    }
-    last_read_desc.close();
+
+    // if backtick then write to stringstream, else write to stdout
+    std::copy(std::istreambuf_iterator<char>(last_read_desc),
+         std::istreambuf_iterator<char>(),
+         std::ostreambuf_iterator<char>(backtick ? output : std::cout));
 
     int status = 0;
     for(int i = 0; i < pipelineLength; i++){
@@ -144,7 +147,7 @@ std::string Pipeline::execute(Context* context, bool backtick) {
     for(int i = 0; i < pipelineLength; i++) // this works when all processes are finished
         unlink((fifo_name_prefix + std::to_string(i)).c_str());
 
-    return output;
+    return output.str();
 }
 
 
