@@ -13,10 +13,11 @@ void Shell::start() {
         std::getline(std::cin, input);
         Program * program = parse(input);
         if(program){
-            std::cout << program->execute(&context) << std::endl;
-
+            std::cout << program->execute(&context, true); // backtick = false
             int lastReturnCode = context.getLastReturnCode();
-            if(lastReturnCode > 0) std::cerr << "Process finished with error code: "<<lastReturnCode<<std::endl;
+            if(lastReturnCode > 0) {
+                std::cerr << "Process finished with error code: " << lastReturnCode << std::endl;
+            }
         }
     }
     std::cout << "Exiting...\n";

@@ -13,7 +13,7 @@ public:
     Pipeline(const Pipeline &) = default;
     explicit Pipeline(std::vector<Command>);
 
-    std::string execute(Context *) override ;
+    std::string execute(Context *, bool backtick) override ;
     bool isEqual(VarPip*);
 };
 

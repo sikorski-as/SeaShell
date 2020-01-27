@@ -18,7 +18,7 @@ Pipeline::Pipeline(std::vector<Command> cmds)
 : commands(cmds)
 {}
 
-std::string Pipeline::execute(Context* context) {
+std::string Pipeline::execute(Context* context, bool backtick) {
     char** argv = nullptr;
     std::string argString = "";
     int j = 0;

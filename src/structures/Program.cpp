@@ -3,17 +3,19 @@
 #include <iostream>
 #include "Program.h"
 
-std::string Program::execute(Context *context) {
+std::string Program::execute(Context *context, bool backtick) {
     std::string out;
     bool first = true;
     for (auto varpip: this->varpips) {
-        auto output = varpip->execute(context);
-        if (first) {
-            out += output;
-            first = false;
+        auto output = varpip->execute(context, backtick);
+        if(backtick){
+            if (first) {
+                out += output;
+                first = false;
 
-        } else {
-            out += '\n' + output;
+            } else {
+                out += '\n' + output;
+            }
         }
     }
     return out;

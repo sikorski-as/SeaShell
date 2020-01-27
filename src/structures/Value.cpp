@@ -6,7 +6,7 @@ std::string Value::execute(Context *context) {
     if (program == nullptr) {
         return context->resolveVariables(value);
     } else {
-        value = program->execute(context);
+        value = program->execute(context, true); // backtick = true
         delete program;
         program = nullptr;
         return context->resolveVariables(value);

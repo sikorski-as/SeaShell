@@ -15,7 +15,7 @@ public:
 
     Variable(Value const&, Value const&, bool = false);
 
-    std::string execute(Context *) override ;
+    std::string execute(Context *, bool) override ;
     bool isEqual(VarPip *) override ;
 };
 
