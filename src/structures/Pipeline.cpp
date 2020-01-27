@@ -11,6 +11,7 @@
 #include <sstream>
 #include <ctime>
 #include "Pipeline.h"
+#include "../modules/Builtins.h"
 #include <stdio.h>
 #include <sstream>
 
@@ -29,18 +30,8 @@ std::string Pipeline::execute(Context* context, bool backtick) {
     int pipelineLength = this->commands.size();
     if(pipelineLength == 1){
         std::string commandName = this->commands[0].commandName.execute(context);
-        if(commandName  == "cd"){
-            if(this->commands[0].arguments.size() > 0){
-                std::string dirName = this->commands[0].arguments[0].execute(context);
-                context->setWorkingDirectory(dirName);
-                return "";
-            }
-        }
-        else if(commandName == "pwd"){
-            return context->getWorkingDirectory();
-        } else if (commandName == "exit") {
-            exit(0);    
-        }
+        if(isBuiltin(commandName))
+            return builtin(commands[0], context, backtick);
     }
     
     
@@ -97,7 +88,10 @@ std::string Pipeline::execute(Context* context, bool backtick) {
                 close(stdoutFileDescriptor);
             }
 
-
+            if(isBuiltin(pipeCommand.commandName.execute(context))){
+                builtin(pipeCommand, context, false);
+                exit(0);
+            }
             // actual command execution
 
             // BELOW FOR TESTING
