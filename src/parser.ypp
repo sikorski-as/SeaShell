@@ -137,7 +137,7 @@ value               : STR {
                       }
                     | SQ_EXPRESSION {
                         std::string sq_str = string($1);
-                        $$ = new Value(sq_str.substr(1, sq_str.length() - 2));
+                        $$ = new Value(sq_str);
                       }
                     ;
 
