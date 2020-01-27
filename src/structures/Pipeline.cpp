@@ -93,24 +93,22 @@ std::string Pipeline::execute(Context* context) {
             // actual command execution
 
             // BELOW FOR TESTING
-            std::string cmdNameString = pipeCommand.commandName.execute(context);
-            //std::cerr<<"CMD: "<<cmdNameString<<std::endl;
-            
-            std::vector<Value> cmdArgs = pipeCommand.arguments;
-            //std::cerr<<"Arg array size: "<<cmdArgs.size()<<std::endl;
+            std::cerr<<"CMD: "<<pipeCommand.commandName.execute(context)<<std::endl;
+            std::cerr<<"Arg array size: "<<pipeCommand.arguments.size()<<std::endl;
 
-            char* argv[cmdArgs.size()+2];
-            argv[0] = const_cast<char*>(cmdNameString.c_str());
-            for(int j = 1; j <= cmdArgs.size(); j++){
-                auto arg = cmdArgs[j-1];
-                std::string argString = arg.execute(context);
-                //std::cerr<<"ARG: "<<argString<<std::endl;
-                argv[j] = const_cast<char*>(argString.c_str());
+            char* argv[pipeCommand.arguments.size()+2];
+            argv[0] = const_cast<char*>(pipeCommand.commandName.execute(context).c_str());
+            for(int j = 0; j < pipeCommand.arguments.size(); j++){
+                std::string argString = pipeCommand.arguments[j].execute(context);
+                std::cerr<<"ARG: "<<argString<<std::endl;
+                argv[j+1] = const_cast<char*>(argString.c_str());
             }
-            argv[cmdArgs.size()+1] = NULL;
-            execvp(argv[0], argv);
+            argv[pipeCommand.arguments.size()+1] = NULL;
+            int result = execvp(argv[0], argv);
+            if(result == -1){ 
+                std::cerr<<strerror(errno)<<std::endl;
+            }
             exit(0); // this gets executed when execvp yields error
-            // std::cout<<strerror(errno)<<std::endl;
         } else if(currPid < 0) {
             throw std::runtime_error("Unable to start subprocess for pipeline element: "+std::to_string(i));
         } else { // parent process

@@ -1,9 +1,10 @@
 #include "Context.h"
 #include <cstdlib>
 #include <iostream>
-#include <string>
 #include <ctype.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
 void Context::setVariable(std::string key, std::string value) {
     this->localVars[key] = value;
@@ -78,7 +79,7 @@ std::string Context::resolveVariables(std::string s) {
 void Context::setWorkingDirectory(std::string newWorkingDirectory) {
     int result = chdir(newWorkingDirectory.c_str());
     if(result == -1){
-        // TODO: handle errors
+        std::cerr<<strerror(errno)<<std::endl;
     }
 }
 
@@ -102,4 +103,8 @@ void Context::stop() {
 
 void Context::setLastReturnCode(int code) {
     lastReturnCode = code;
+}
+
+int Context::getLastReturnCode() {
+    return lastReturnCode;
 }
