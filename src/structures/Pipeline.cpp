@@ -44,7 +44,7 @@ std::string Pipeline::execute(Context* context) {
     
     pid_t pids[pipelineLength];
     std::time_t currentTimestamp = std::time(nullptr);
-    std::string fifo_name_prefix = "/tmp/seashell_fifo."+std::to_string(currentTimestamp)+".";
+    std::string fifo_name_prefix = "/tmp/seashell_fifo."+std::to_string(currentTimestamp)+"."+std::to_string(getpid())+'.';
     for(int i = 0; i < pipelineLength; i++){
         std::string fifo_name = fifo_name_prefix + std::to_string(i);
         mkfifo(fifo_name.c_str(), 0666);
@@ -99,14 +99,14 @@ std::string Pipeline::execute(Context* context) {
             // actual command execution
 
             // BELOW FOR TESTING
-            std::cerr<<"CMD: "<<pipeCommand.commandName.execute(context)<<std::endl;
-            std::cerr<<"Arg array size: "<<pipeCommand.arguments.size()<<std::endl;
+            // std::cerr<<"CMD: "<<pipeCommand.commandName.execute(context)<<std::endl;
+            // std::cerr<<"Arg array size: "<<pipeCommand.arguments.size()<<std::endl;
 
             argv = new char*[pipeCommand.arguments.size()+2];
             argv[0] = const_cast<char*>(pipeCommand.commandName.execute(context).c_str());
             for(j = 0; j < pipeCommand.arguments.size(); j++){
                 argString = pipeCommand.arguments[j].execute(context);
-                std::cerr<<"ARG: "<<argString<<std::endl;
+                // std::cerr<<"ARG: "<<argString<<std::endl;
                 tempAlloc = new char[pipeCommand.arguments[j].execute(context).length()];
                 sprintf(tempAlloc, pipeCommand.arguments[j].execute(context).c_str());
                 argv[j+1] = tempAlloc;
