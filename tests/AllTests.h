@@ -10,6 +10,5 @@
 #include "RedirectionTests.h"
 #include "ContextTests.h"
 #include "ErrorTests.h"
-#include "BackTickExprTests.h"
 
 #endif

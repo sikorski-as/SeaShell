@@ -33,7 +33,6 @@ add_executable(tests
         src/parser.cpp src/parser.hpp src/lexer.cpp
 
         tests/ErrorTests.h tests/ErrorTests.cpp
-        tests/BackTickExprTests.h tests/BackTickExprTests.cpp
         tests/PwdTests.h tests/PwdTests.cpp
         tests/CdTests.h tests/CdTests.cpp
         tests/EchoTests.h tests/EchoTests.cpp

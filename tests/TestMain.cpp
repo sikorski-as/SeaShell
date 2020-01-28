@@ -18,22 +18,29 @@ int main() {
     Program redirection = generateBothWayRedirection();
     Program redirection2 = generatePipeWithRedirections2();
     Program redirection3 = generatePipeWithRedirections3();
-    Program simpleBackTickPwd = generateSimpleBackTick();
-    Program simpleBackTick = generateSimpleBackTick2();
-    Program simpleBackTickWithArguments = generateBackTickWithArguments();
-    Program simpleBackTickInSimplePipe = backTickInSimplePipe();
-    Program pipedBackTick = pipedBackTickInPipe();
 
     // Errors
-    Program assignmentFailed = variableAssignementFail();
-    Program assignmentFailedEchoSuccess = variableAssignementFailedBeforeSuccessfulInstr();
-    Program assignmentFailedEchoFailed = failedVariableAssignementEchoed();
     Program cdFailed = cdToNonExistingFolder();
 
     // Example execution here (write your tests here)
     Context context;
 
 //    std::cout << "-- Simple echo result: " << echo.execute(&context, false) << std::endl;
+//    std::cout << "-- Simple echo result: " << pwd.execute(&context, false) << std::endl;
+//    std::cout << "-- Simple echo result: " << cd.execute(&context, false) << std::endl;
+//    std::cout << "-- Simple echo result: " << echo2.execute(&context, false) << std::endl;
+//    std::cout << "-- Simple echo result: " << echo3.execute(&context, false) << std::endl;
+//    std::cout << "-- Simple echo result: " << assignment.execute(&context, false) << std::endl;
+//    std::cout << exported.execute(&context, false) << std::endl;
+//    std::cout << pipe1.execute(&context, false) << std::endl;
+//    std::cout << pipe2.execute(&context, false) << std::endl;
+//    std::cout << pipe3.execute(&context, false) << std::endl;
+//    std::cout << outRedirection.execute(&context, false) << std::endl;
+//    std::cout << inRedirection.execute(&context, false) << std::endl;
+//    std::cout << redirection.execute(&context, false) << std::endl;
+//    std::cout << redirection2.execute(&context, false) << std::endl;
+//    std::cout << redirection3.execute(&context, false) << std::endl;
+
 
     // Automatic Context tests
     testContextNoReplecement();
@@ -65,9 +72,6 @@ int main() {
     testParserGenerateInputRedirection();
     testParserGenerateBothWayRedirection();
     testParserGenerateSimpleAssignment();
-    testParserGenerateSimpleBackTick(); // seg fault na etapie parsowania?
-    testParserGenerateSimpleBackTick2();
-    testParserGenerateBackTickWithArguments();
 
     return 0;
 }
