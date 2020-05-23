@@ -1,6 +1,11 @@
-#include <iostream>
+#include "modules/Shell.h"
+#include "modules/Signals.h"
+#include <csignal>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    signal(SIGINT, signalHandler);
+    signal(SIGQUIT, signalHandler);
+
+    Shell().start();
     return 0;
 }
